@@ -24,3 +24,7 @@ for game in recent_games['games']:
   #print "#" * 30
 
 print "{0}/10 games won".format(games_won)
+
+cl = euw.static_get_champion_list()
+
+print cl
