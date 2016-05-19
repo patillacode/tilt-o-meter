@@ -38,7 +38,8 @@ if __name__ == '__main__':
     champions_dict = {}
     for data in champions_list.values():
         champions_dict[data['id']] = data['name']
-
+    # Add Taliyah for now...
+    champions_dict[163] = "Taliyah"
     games_won = 0
     kills = 0
     deaths = 0
