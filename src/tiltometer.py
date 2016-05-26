@@ -1,20 +1,15 @@
-# import argparse
-import logging
 import random
 import sys
 import traceback
 
 import config
 
+from flask import current_app
+
 from riotwatcher import EUROPE_WEST
 from riotwatcher import RiotWatcher
 
 from keys import API_KEY
-
-logging.basicConfig(level=logging.ERROR)
-logger = logging.getLogger(__name__)
-
-global champions_dict
 
 
 def get_champions_data(watcher):
@@ -34,6 +29,7 @@ def get_stats(games, champions_dict):
     stats = []
 
     for game in games:
+        print game
         kills = game['stats'].get('championsKilled', 0)
         deaths = game['stats'].get('numDeaths', 0)
         assists = game['stats'].get('assists', 0)
@@ -42,12 +38,12 @@ def get_stats(games, champions_dict):
                                                 champions_dict)
         champion_img = "{0}{1}.png".format(config.CHAMPION_ICON_URL,
                                            champion_name)
-        position = game['stats'].get('playerPosition', 'N/A')
+        position = game['stats'].get('playerPosition', 0)
         pentakill = True if game['stats'].get('largestMultiKill', 0) == 5 \
             else False
 
         time = game['stats']['timePlayed']
-        game_mode = game['gameMode']
+        game_type = game['subType']
         win = False
 
         if game['stats']['win']:
@@ -58,10 +54,10 @@ def get_stats(games, champions_dict):
              'assists': assists,
              'champion_name': champion_name,
              'champion_img': champion_img,
-             'position': position,
+             'position': config.PLAYER_POSITION[position],
              'pentakill': pentakill,
-             'time': time,
-             'game_mode': game_mode,
+             'time': '{0}:{1}'.format(time / 60, str(time % 60).zfill(2)),
+             'game_type': game_type,
              'win': win}
 
         stats.append(g)
@@ -93,9 +89,10 @@ def get_tilt(summoner_name):
         champions_dict = get_champions_data(euw)
         # check if we have API calls remaining
         if euw.can_make_request():
-            logger.debug('Requests to API available')
+            current_app.logger.debug('Requests to API available')
         else:
-            logger.error('Too many requests. Please wait.')
+            current_app.logger.error('Too many requests. '
+                                     'Please try again later.')
             sys.exit(2)
 
         player = euw.get_summoner(name=summoner_name, region=EUROPE_WEST)
@@ -107,25 +104,10 @@ def get_tilt(summoner_name):
                         "background": get_random_background_url(
                             champions_dict),
                         "display": get_random_display()},
-                    "stats": get_stats(recent_games, champions_dict)}
+                    "stats": get_stats(recent_games, champions_dict),
+                    "summoner_name": summoner_name}
         return response
     except:
-        print traceback.format_exc()
-        return {'error': 'an error ocurred, please try again.'}
-
-
-# if __name__ == '__main__':
-
-#     parser = argparse.ArgumentParser(
-#         description='Measure a player\'s strike in LOL - last 10 games')
-#     parser.add_argument('-n',
-#                         '--name',
-#                         metavar='name',
-#                         type=str,
-#                         required=True,
-#                         help='Player\'s name')
-
-#     args = parser.parse_args()
-#     name = args.name
-
-#     print get_tilt(name)
+        current_app.logger.error(traceback.format_exc())
+        raise
+        # return {'error': 'an error ocurred, please try again.'}
