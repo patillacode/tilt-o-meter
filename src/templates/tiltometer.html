@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>tilt-o-meter</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/tiltometer.css') }}">
-</head>
-<body>
+    <head>
+        <title>tilt-o-meter</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/tiltometer.css') }}">
+    </head>
+    <body>
 
-    <div id="header" class="header clear-fix">
-        <p class="text-center">
-            <a href="{{ url_for('index') }}" class="twallery-font">tilt-o-meter</a>
-        </p>
-    </div><!-- /header -->
-    <hr>
-    <div id="content" class="container">
+        <div id="header" class="header clear-fix">
+            <p class="text-center">
+                <a href="{{ url_for('index') }}" class="twallery-font">tilt-o-meter</a>
+            </p>
+        </div><!-- /header -->
+        <hr>
+        <div id="content" class="container">
 
-        <section id="tiltometer-section" class"text-center">
-            <p id="summoner_name">{{ data.summoner_name }}</p>
-            <div>
+            <section id="tiltometer-section" class"text-center ">
+                <div id="gauge"></div>
+            </section>
 
-            </div>
-        </section>
+            <p class="clearfix"></p>
 
-        <section id="stats-section">
-            <table id="stats-table">
-                <caption>Stats</caption>
-                <thead>
-                    <tr>
-                        <th>Champion</th>
-                        <th>Lane</th>
-                        <th>KDA</th>
-                        <th>Time</th>
-                        <th>Mode</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in data.stats %}
-                        <div class=flash>{{ message }}</div>
+            <button id="show-stats-button" role="button" type="button" class="btn btn-warning">Stats</button>
+
+            <p class="clearfix"></p>
+
+            <section id="stats-section">
+                <table id="stats-table">
+                    <thead>
                         <tr>
-                            <td><img src="{{ item.champion_img }}" alt=""></td>
-                            <td>{{ item.position }}</td>
-                            <td>{{ item.kills }}/{{ item.deaths }}/{{ item.assists }}</td>
-                            <td>{{ item.time }}</td>
-                            <td>{{ item.game_type }}</td>
-                            {% if item.win %}
-                                <td><img src="{{ url_for('static', filename='img/victory_logo.png') }}" alt="victory"></td>
-                            {% else %}
-                                <td><img src="{{ url_for('static', filename='img/defeat_logo.png') }}" alt="defeat"></td>
-                            {% endif %}
+                            <th>Champion</th>
+                            <th>Lane</th>
+                            <th>KDA</th>
+                            <th>Time</th>
+                            <th>Mode</th>
+                            <th></th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
-    </div>
-
-{{ data }}
-</body>
+                    </thead>
+                    <tbody>
+                        {% for item in data.stats %}
+                            <div class=flash>{{ message }}</div>
+                            <tr>
+                                <td><img src="{{ item.champion_img }}" alt=""></td>
+                                <td>{{ item.position }}</td>
+                                <td>{{ item.kills }}/{{ item.deaths }}/{{ item.assists }}</td>
+                                <td>{{ item.time }}</td>
+                                <td>{{ item.game_type }}</td>
+                                {% if item.win %}
+                                    <td><img src="{{ url_for('static', filename='img/victory_logo.png') }}" alt="victory"></td>
+                                {% else %}
+                                    <td><img src="{{ url_for('static', filename='img/defeat_logo.png') }}" alt="defeat"></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </body>
+    <script type="text/javascript">
+        $BACKGROUND = "{{ data.metadata.background|safe }}";
+        $SUMMONER_NAME = "{{ data.summoner_name|safe }}";
+        $TILT_LEVEL = "{{ data.tilt_level|safe }}";
+        // alert($BACKGROUND);
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.12.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/justgage/raphael-2.1.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/justgage/justgage.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tiltometer.js') }}"></script>
 </html>
