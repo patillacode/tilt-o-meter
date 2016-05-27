@@ -1,5 +1,6 @@
 function set_background(background_url){
-    $('body').css('background-image', 'url(' + background_url + ')');
+    $('#background-image').css('background-image', 'url(' + background_url + ')');
+    console.log("image URL", background_url)
 }
 
 function set_gauge(summoner_name, tilt){
@@ -9,7 +10,9 @@ function set_gauge(summoner_name, tilt){
         min: 0,
         max: 100,
         title: summoner_name,
-        label: "tilt points"
+        label: "Tilt Points",
+        titleFontColor: "#FF6900",
+        valueFontColor: "#FF6900"
     });
 }
 

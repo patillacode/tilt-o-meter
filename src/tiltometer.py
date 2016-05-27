@@ -97,20 +97,33 @@ def get_tilt_level(games):
         # 0.5 tilt points for every game lost
         # bigger multiplier the more recent the game was
         if not game['stats']['win']:
-            tilt_points += 0.5 * multiplier
+            tilt_points += 0.8 * multiplier
 
             # if you lost a game under 25 minutes probably means you forfited
             # or you were crushed
             # multiplier for the more recent was
             if game['stats']['timePlayed'] < 1500:
-                tilt_points += 0.8 * multiplier
+                tilt_points += 1 * multiplier
 
         # if you lost X games in a row you gain 10 tilt points per game
         # bigger multiplier the more recent the cold strike was
 
         # if your KDA is low... tilt points for you!
+        kda = get_kda(game['stats'].get('championsKilled', 0),
+                      game['stats'].get('numDeaths', 0),
+                      game['stats'].get('assists', 0))
+        if kda < 1:
+            tilt_points += 1.5 * multiplier
+        elif kda < 2:
+            tilt_points += 1 * multiplier
+        elif kda < 3:
+            tilt_points += 0.5 * multiplier
+        # if your kda is over 3 you did fairly well adn you are happy
+        # let's get some tilt point off of you ^^
+        else:
+            tilt_points -= 1 * multiplier
 
-    multiplier -= 1
+        multiplier -= 1
 
     return tilt_points
 
