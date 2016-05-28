@@ -1,4 +1,4 @@
-from app import application
+from tiltometer.app import application
 
 
 if __name__ == "__main__":
