@@ -36,7 +36,7 @@ Small web app that shows the measurement of a LOL's player level of tilt
 ------------
 
 ### Demo
-[Live Demo](http://tilt-o-meter.jnnp2qm6t7.us-west-2.elasticbeanstalk.com/)
+[Live Demo](http://tilt-o-meter.9c2u6ps82t.us-west-2.elasticbeanstalk.com/)
 
 ------------
 
