@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'Swiftel';
+  src: url('../fonts/Swiftel.woff2') format('woff2'),
+       url('../fonts/Swiftel.woff') format('woff'),
+       url('../fonts/Swiftel.ttf') format('truetype');
+}
+
+.tilt-font {
+    font-family: "Swiftel";
+}
+
+.header > p > a {
+    font-size: 66pt;
+    color: #ff6900;
+    text-decoration: none;
+    /*-webkit-text-stroke: 1px #ff6900;*/
+    /*-webkit-text-fill-color: #fff;*/
+}
+
+.black-bg {
+    background-color: #333;
+}
+
+#summoner-label {
+    color: #fff;
+}
+
+#summoner-input-button {
+    background-color: #ff6900;
+    margin: auto;
+    display: block;
+    width: 100%;
+    outline: none;
+}

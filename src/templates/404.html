@@ -15,8 +15,12 @@
         <div class="container">
             <div class="vertical-center">
                 <div class="container text-center lead">
-                    <p class="">Oops</p>
-                    <p class="">Something went wrong.</p>
+                    {% if error %}
+                       <p>{{error}}</p>
+                    {% else %}
+                        <p>Oops</p>
+                        <p>Something went wrong.</p>
+                    {% endif %}
                     <a href="http://{{ request.host }}" role="button" type="button" class="btn-lg btn-danger">
                         Go back!
                     </a>

@@ -18,12 +18,14 @@
 */
 
 @font-face {
-    font-family: "Swiftel";
-    src: url("../fonts/Swiftel.ttf");
+  font-family: 'Swiftel';
+  src: url('../fonts/Swiftel.woff2') format('woff2'),
+       url('../fonts/Swiftel.woff') format('woff'),
+       url('../fonts/Swiftel.ttf') format('truetype');
 }
 
-.twallery-font {
-    font-family: "Swiftel";
+.tilt-font {
+    font-family: 'Swiftel';
 }
 
 

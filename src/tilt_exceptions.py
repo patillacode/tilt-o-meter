@@ -1,0 +1,2 @@
+class SummonerNotFound(Exception):
+    pass
