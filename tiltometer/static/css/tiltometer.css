@@ -17,18 +17,6 @@
  * @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 */
 
-@font-face {
-  font-family: 'Swiftel';
-  src: url('../fonts/Swiftel.woff2') format('woff2'),
-       url('../fonts/Swiftel.woff') format('woff'),
-       url('../fonts/Swiftel.ttf') format('truetype');
-}
-
-.tilt-font {
-    font-family: 'Swiftel';
-}
-
-
 #fixed-background {
     z-index: -99999;
     position: fixed;
@@ -94,7 +82,7 @@
 #stats-section{
     width: 100%;
     margin: auto;
-    display: none;
+    /* display: none; */
 }
 
 table {
@@ -143,6 +131,10 @@ td:nth-child(3) {
 
 .win-lose-logo {
     width: 50%;
+}
+
+.pentakill {
+    border: 3px solid red;
 }
 /* Cells in even rows (2,4,6...) are one color */
 /* tr:nth-child(even) td { background: #F1F1F1; } */

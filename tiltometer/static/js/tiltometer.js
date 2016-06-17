@@ -16,16 +16,16 @@ function set_gauge(summoner_name, tilt){
     });
 }
 
-$('#show-stats-button').click(function(){
-    if ($(this).text() == "Stats") {
-      $(this).text("Tiltometer");
-   }
-   else {
-      $(this).text("Stats");
-   }
-    $("#tiltometer-section").toggle();
-    $("#stats-section").slideToggle();
-});
+// $('#show-stats-button').click(function(){
+//     if ($(this).text() == "Stats") {
+//       $(this).text("Tiltometer");
+//    }
+//    else {
+//       $(this).text("Stats");
+//    }
+//     $("#tiltometer-section").toggle();
+//     $("#stats-section").slideToggle();
+// });
 
 $( document ).ready(function() {
     set_background($BACKGROUND);

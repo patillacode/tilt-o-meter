@@ -4,6 +4,7 @@
         <title>Tilt-o-meter</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body class="container black-bg">
         <div id="header" class="header clear-fix">
@@ -12,11 +13,27 @@
             </p>
         </div><!-- /header -->
         <div id="get-tilt-form">
-            <fieldset class="form-group">
-                <!-- <label id="summoner-label" for="summoner-name">Enter summoner name</label> -->
-                <input id="summoner-text-input" type="text" class="form-control" id="summoner-name" placeholder="Enter summoner name">
-                <button id="summoner-input-button" type="button" class="btn-lg btn-warning" role="button" host="http://{{ request.host }}">Calculate Tilt!</button>
-            </fieldset>
+            <form class="form-inline" onsubmit="return false;">
+                <div class="form-group">
+                    <select id="area-select" name="area">
+                        <option value="br">BR</option>
+                        <option value="eune">EUNE</option>
+                        <option value="euw" selected="selected">EUW</option>
+                        <option value="kr">KR</option>
+                        <option value="lan">LAN</option>
+                        <option value="las">LAS</option>
+                        <option value="na">NA</option>
+                        <option value="oce">OCE</option>
+                        <option value="ru">RU</option>
+                        <option value="tr">TR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="summoner-text-input">Summoner name</label>
+                    <input type="text" class="form-control" id="summoner-text-input" placeholder="Summoner Name">
+                </div>
+                <button id="summoner-input-button" type="button" class="btn btn-warning" role="button" host="http://{{ request.host }}">Calculate Tilt!</button>
+            </form>
         </div>
     </body>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.12.4.min.js') }}"></script>

@@ -1,14 +1,3 @@
-@font-face {
-  font-family: 'Swiftel';
-  src: url('../fonts/Swiftel.woff2') format('woff2'),
-       url('../fonts/Swiftel.woff') format('woff'),
-       url('../fonts/Swiftel.ttf') format('truetype');
-}
-
-.tilt-font {
-    font-family: "Swiftel";
-}
-
 .header > p > a {
     font-size: 66pt;
     color: #ff6900;
@@ -21,14 +10,23 @@
     background-color: #333;
 }
 
+#get-tilt-form {
+  text-align: center;
+}
+
 #summoner-label {
     color: #fff;
 }
 
 #summoner-input-button {
     background-color: #ff6900;
-    margin: auto;
-    display: block;
-    width: 100%;
+    /* margin: auto; */
+    /* display: block; */
+    /* width: 100%; */
     outline: none;
+}
+
+#summoner-text-input {
+  width: 100%;
+  /* margin-left:25%; */
 }

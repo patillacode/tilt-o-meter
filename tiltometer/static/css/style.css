@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Swiftel';
+  src: url('../fonts/Swiftel.woff2') format('woff2'),
+       url('../fonts/Swiftel.woff') format('woff'),
+       url('../fonts/Swiftel.ttf') format('truetype');
+}
+
+.tilt-font {
+    font-family: 'Swiftel';
+}
+
+#get-tilt-form {
+  text-align: center;
+}
+
+#area-select {
+  width: 100%;
+  appearance:textfield;
+  -moz-appearance:textfield; /* Firefox */
+  -webkit-appearance:textfield; /* Safari and Chrome */
+  height: 33px;
+  background-color: #00FEFE;
+  border: none;
+}

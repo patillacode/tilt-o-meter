@@ -22,11 +22,11 @@ def index():
     return render_template('index.html', request=request)
 
 
-@application.route('/tilt-o-meter/<summoner_name>', methods=['GET'])
-def tiltometer(summoner_name):
-    # return jsonify(get_tilt(summoner_name))
+@application.route('/tilt-o-meter/<area>/<summoner_name>', methods=['GET'])
+def tiltometer(area, summoner_name):
+    print 'AREA', area
     try:
-        data = get_tilt(summoner_name)
+        data = get_tilt(area, summoner_name)
         return render_template('tiltometer.html', data=data)
     except SummonerNotFound as e:
         return render_template('404.html',
@@ -37,6 +37,6 @@ def tiltometer(summoner_name):
         return render_template('404.html', request=request)
 
 
-@application.route('/api/<summoner_name>', methods=['GET'])
-def api(summoner_name):
-    return jsonify(get_tilt(summoner_name))
+@application.route('/api/<area>/<summoner_name>', methods=['GET'])
+def api(area, summoner_name):
+    return jsonify(get_tilt(area, summoner_name))

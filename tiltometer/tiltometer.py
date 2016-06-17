@@ -6,7 +6,6 @@ import config
 
 from flask import current_app
 
-from riotwatcher import EUROPE_WEST
 from riotwatcher import RiotWatcher
 from riotwatcher import LoLException
 
@@ -18,23 +17,27 @@ def get_champions_data(watcher):
     champions_list = watcher.static_get_champion_list()['data']
     champions_dict = {}
     for data in champions_list.values():
-        champions_dict[data['id']] = data['name']
+        champions_dict[data['id']] = {'name': data['name'], 'key': data['key']}
 
     return champions_dict
 
 
 def get_champion_name_by_id(champion_id, champions_dict):
-    return clean_champion_name(champions_dict[champion_id])
+    return champions_dict[champion_id]['name']
 
 
-def clean_champion_name(champion_name):
-    first_letter = champion_name[0]
-    sufix = champion_name[1:].\
-        replace('\'', '').\
-        replace('.', '').\
-        replace(' ', '').\
-        lower()
-    return '{0}{1}'.format(first_letter, sufix)
+def get_champion_key_by_id(champion_id, champions_dict):
+    return champions_dict[champion_id]['key']
+
+
+# def clean_champion_name(champion_name):
+#     first_letter = champion_name[0]
+#     sufix = champion_name[1:].\
+#         replace('\'', '').\
+#         replace('.', '').\
+#         replace(' ', '').\
+#         lower()
+#     return '{0}{1}'.format(first_letter, sufix)
 
 
 def get_stats(games, champions_dict):
@@ -47,11 +50,14 @@ def get_stats(games, champions_dict):
 
         champion_name = get_champion_name_by_id(game['championId'],
                                                 champions_dict)
+        champion_key = get_champion_key_by_id(game['championId'],
+                                              champions_dict)
         champion_img = "{0}{1}.png".format(config.CHAMPION_ICON_URL,
-                                           champion_name)
+                                           champion_key)
         position = game['stats'].get('playerPosition', 0)
         pentakill = True if game['stats'].get('largestMultiKill', 0) == 5 \
             else False
+        # pentakill = game['stats'].get('largestMultiKill', 0)
 
         time = game['stats']['timePlayed']
         game_type = game['subType']
@@ -85,8 +91,8 @@ def get_wins_number(games):
 
 
 def get_random_background_url(champions_dict):
-    random_champion_name = random.sample(champions_dict.values(), 1)[0]
-    random_champion_name = clean_champion_name(random_champion_name)
+    random_champion_name = random.sample(champions_dict.values(), 1)[0]['key']
+    # random_champion_name = clean_champion_name(random_champion_name)
     return "{0}{1}_0.jpg".format(config.CHAMPION_SPLASH_URL,
                                  random_champion_name)
 
@@ -104,66 +110,105 @@ def get_tilt_level(games):
     # completely arbitrary - over a 100 point scale
     tilt_points = 0
     multiplier = 10
+    cold_streak = 0
 
     for game in games:
-        # 0.5 tilt points for every game lost
-        # bigger multiplier the more recent the game was
+        this_game_tilt_points = 0
+
         if not game['stats']['win']:
+            # 0.8 tilt points for every game lost
+            # bigger multiplier the more recent the game was
+            print 'lost this game: {0} tilt points'.format(0.8 * multiplier)
+            this_game_tilt_points += 0.8 * multiplier
             tilt_points += 0.8 * multiplier
+            # add cold strak points
+            cold_streak += 1
 
             # if you lost a game under 25 minutes probably means you forfited
             # or you were crushed
-            # multiplier for the more recent was
+            # multiplier for the more recent the game was
             if game['stats']['timePlayed'] < 1500:
-                tilt_points += 1 * multiplier
+                tilt_points += multiplier
+                print 'under 25 min game: {0} points more'.format(multiplier)
+                this_game_tilt_points += multiplier
+        else:
+            cold_streak = 0
 
-        # if you lost X games in a row you gain 10 tilt points per game
+        # if you lost 2 or more games in a row you gain tilt points per game
         # bigger multiplier the more recent the cold strike was
+        if cold_streak > 1:
+            tilt_points += cold_streak * (multiplier / 2)
+            print 'cold streak: {0} * ({1}/2) = {2} more points'.format(
+                cold_streak,
+                multiplier,
+                cold_streak * (multiplier / 2))
+            this_game_tilt_points += cold_streak * multiplier
 
-        # if your KDA is low... tilt points for you!
         kda = get_kda(game['stats'].get('championsKilled', 0),
                       game['stats'].get('numDeaths', 0),
                       game['stats'].get('assists', 0))
+
+        # if your KDA is low... tilt points for you!
         if kda < 1:
+            print 'kda = {0} so {1} points for you.'.format(
+                kda, 1.5 * multiplier)
             tilt_points += 1.5 * multiplier
+            this_game_tilt_points += 1.5 * multiplier
         elif kda < 2:
-            tilt_points += 1 * multiplier
+            print 'kda = {0} so {1} points for you.'.format(
+                kda, multiplier)
+            tilt_points += multiplier
+            this_game_tilt_points += multiplier
         elif kda < 3:
+            print 'kda = {0} so {1} points for you.'.format(
+                kda, 0.5 * multiplier)
             tilt_points += 0.5 * multiplier
-        # if your kda is over 3 you did fairly well adn you are happy
-        # let's get some tilt point off of you ^^
+            this_game_tilt_points += 0.5 * multiplier
         else:
-            tilt_points -= 1 * multiplier
+            print 'kda = {0} so -{1} points for you.'.format(
+                kda, multiplier)
+            # if your kda is over 3 you did fairly well adn you are happy
+            # let's get some tilt point off of you ^^
+            tilt_points -= multiplier
+            this_game_tilt_points -= multiplier
 
         multiplier -= 1
-
+        print 'this game earned you {0} tilt points'.format(
+            this_game_tilt_points)
+        print "#" * 50
     if tilt_points > 100:
         return 100
+    elif tilt_points < 1:
+        return 0
 
     return tilt_points
 
 
-def get_tilt(summoner_name):
+def get_tilt(area, summoner_name):
     try:
-        euw = RiotWatcher(API_KEY, default_region=EUROPE_WEST)
-        champions_dict = get_champions_data(euw)
+        watcher = RiotWatcher(API_KEY, default_region=area)
+        champions_dict = get_champions_data(watcher)
         # check if we have API calls remaining
-        if euw.can_make_request():
+        if watcher.can_make_request():
             current_app.logger.debug('Requests to API available')
         else:
             current_app.logger.error('Too many requests. '
                                      'Please try again later.')
             sys.exit(2)
         try:
-            player = euw.get_summoner(name=summoner_name, region=EUROPE_WEST)
+            print 'getting summoner {0} in area {1}'.format(
+                summoner_name, area)
+            print type(area)
+            player = watcher.get_summoner(name=summoner_name, region=area)
         except LoLException:
             current_app.logger.debug('Summoner {0} not found.'.format(
                 summoner_name))
-            raise SummonerNotFound('Summoner {0} not found.'.format(
-                summoner_name))
+            raise SummonerNotFound(
+                'Summoner {0} not found in {1} server.'.format(
+                    summoner_name, area.upper()))
 
-        recent_games = euw.get_recent_games(player['id'])['games']
-
+        recent_games = watcher.get_recent_games(player['id'])['games']
+        print recent_games
         response = {"status": 200,
                     "wins": get_wins_number(recent_games),
                     "metadata": {

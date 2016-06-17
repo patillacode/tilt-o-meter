@@ -4,6 +4,7 @@
         <title>tilt-o-meter</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tiltometer.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body class="container">
         <div id="fixed-background">
@@ -24,7 +25,30 @@
 
             <p class="clearfix"></p>
 
-            <button id="show-stats-button" role="button" type="button" class="btn-lg btn-warning">Stats</button>
+            <!-- <button id="show-stats-button" role="button" type="button" class="btn-lg btn-warning">Stats</button> -->
+            <div id="get-tilt-form">
+                <form class="form-inline" onsubmit="return false;">
+                    <div class="form-group">
+                        <select id="area-select" name="area">
+                            <option value="br">BR</option>
+                            <option value="eune">EUNE</option>
+                            <option value="euw" selected="selected">EUW</option>
+                            <option value="kr">KR</option>
+                            <option value="lan">LAN</option>
+                            <option value="las">LAS</option>
+                            <option value="na">NA</option>
+                            <option value="oce">OCE</option>
+                            <option value="ru">RU</option>
+                            <option value="tr">TR</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="summoner-text-input">Summoner name</label>
+                        <input type="text" class="form-control" id="summoner-text-input" placeholder="Summoner Name">
+                    </div>
+                    <button id="summoner-input-button" type="button" class="btn btn-warning" role="button" host="http://{{ request.host }}">Calculate Tilt!</button>
+                </form>
+            </div>
 
             <p class="clearfix"></p>
 
@@ -42,8 +66,11 @@
                     </thead>
                     <tbody>
                         {% for item in data.stats %}
-                            <div class=flash>{{ message }}</div>
-                            <tr>
+                            {% if item.pentakill %}
+                                <tr class="pentakill">
+                            {% else%}
+                                <tr>
+                            {% endif %}
                                 <td><img class="champion-logo" src="{{ item.champion_img }}" alt=""></td>
                                 <td>{{ item.position }}</td>
                                 <td>{{ item.kills }}/{{ item.deaths }}/{{ item.assists }}</td>
@@ -71,4 +98,5 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/justgage/raphael-2.1.4.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/justgage/justgage.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/tiltometer.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
 </html>
