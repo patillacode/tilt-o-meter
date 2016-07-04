@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='tilt-o-meter',
-    version='0.1.3',
+    version='0.1.4',
     description='',
     license='GPLv2',
     packages=find_packages(),
