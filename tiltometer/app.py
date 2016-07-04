@@ -25,7 +25,6 @@ def index():
 
 @application.route('/tilt-o-meter/<area>/<summoner_name>', methods=['GET'])
 def tiltometer(area, summoner_name):
-    print 'AREA', area
     try:
         data = get_tilt(area, summoner_name)
         return render_template('tiltometer.html', data=data, host=DOMAIN)

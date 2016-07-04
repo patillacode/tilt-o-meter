@@ -30,16 +30,6 @@ def get_champion_key_by_id(champion_id, champions_dict):
     return champions_dict[champion_id]['key']
 
 
-# def clean_champion_name(champion_name):
-#     first_letter = champion_name[0]
-#     sufix = champion_name[1:].\
-#         replace('\'', '').\
-#         replace('.', '').\
-#         replace(' ', '').\
-#         lower()
-#     return '{0}{1}'.format(first_letter, sufix)
-
-
 def get_stats(games, champions_dict):
     stats = []
 
@@ -57,7 +47,6 @@ def get_stats(games, champions_dict):
         position = game['stats'].get('playerPosition', 0)
         pentakill = True if game['stats'].get('largestMultiKill', 0) == 5 \
             else False
-        # pentakill = game['stats'].get('largestMultiKill', 0)
 
         time = game['stats']['timePlayed']
         game_type = game['subType']
@@ -92,7 +81,6 @@ def get_wins_number(games):
 
 def get_random_background_url(champions_dict):
     random_champion_name = random.sample(champions_dict.values(), 1)[0]['key']
-    # random_champion_name = clean_champion_name(random_champion_name)
     return "{0}{1}_0.jpg".format(config.CHAMPION_SPLASH_URL,
                                  random_champion_name)
 
@@ -118,7 +106,6 @@ def get_tilt_level(games):
         if not game['stats']['win']:
             # 0.8 tilt points for every game lost
             # bigger multiplier the more recent the game was
-            print 'lost this game: {0} tilt points'.format(0.8 * multiplier)
             this_game_tilt_points += 0.8 * multiplier
             tilt_points += 0.8 * multiplier
             # add cold strak points
@@ -129,7 +116,6 @@ def get_tilt_level(games):
             # multiplier for the more recent the game was
             if game['stats']['timePlayed'] < 1500:
                 tilt_points += multiplier
-                print 'under 25 min game: {0} points more'.format(multiplier)
                 this_game_tilt_points += multiplier
         else:
             cold_streak = 0
@@ -138,10 +124,7 @@ def get_tilt_level(games):
         # bigger multiplier the more recent the cold strike was
         if cold_streak > 1:
             tilt_points += cold_streak * (multiplier / 2)
-            print 'cold streak: {0} * ({1}/2) = {2} more points'.format(
-                cold_streak,
-                multiplier,
-                cold_streak * (multiplier / 2))
+
             this_game_tilt_points += cold_streak * multiplier
 
         kda = get_kda(game['stats'].get('championsKilled', 0),
@@ -150,32 +133,21 @@ def get_tilt_level(games):
 
         # if your KDA is low... tilt points for you!
         if kda < 1:
-            print 'kda = {0} so {1} points for you.'.format(
-                kda, 1.5 * multiplier)
             tilt_points += 1.5 * multiplier
             this_game_tilt_points += 1.5 * multiplier
         elif kda < 2:
-            print 'kda = {0} so {1} points for you.'.format(
-                kda, multiplier)
             tilt_points += multiplier
             this_game_tilt_points += multiplier
         elif kda < 3:
-            print 'kda = {0} so {1} points for you.'.format(
-                kda, 0.5 * multiplier)
             tilt_points += 0.5 * multiplier
             this_game_tilt_points += 0.5 * multiplier
         else:
-            print 'kda = {0} so -{1} points for you.'.format(
-                kda, multiplier)
-            # if your kda is over 3 you did fairly well adn you are happy
+            # if your kda is over 3 you did fairly well and you are happy
             # let's get some tilt point off of you ^^
             tilt_points -= multiplier
             this_game_tilt_points -= multiplier
 
         multiplier -= 1
-        print 'this game earned you {0} tilt points'.format(
-            this_game_tilt_points)
-        print "#" * 50
     if tilt_points > 100:
         return 100
     elif tilt_points < 1:
@@ -196,9 +168,6 @@ def get_tilt(area, summoner_name):
                                      'Please try again later.')
             sys.exit(2)
         try:
-            print 'getting summoner {0} in area {1}'.format(
-                summoner_name, area)
-            print type(area)
             player = watcher.get_summoner(name=summoner_name, region=area)
         except LoLException:
             current_app.logger.debug('Summoner {0} not found.'.format(
@@ -208,7 +177,6 @@ def get_tilt(area, summoner_name):
                     summoner_name, area.upper()))
 
         recent_games = watcher.get_recent_games(player['id'])['games']
-        print recent_games
         response = {"status": 200,
                     "wins": get_wins_number(recent_games),
                     "metadata": {
@@ -222,4 +190,3 @@ def get_tilt(area, summoner_name):
     except:
         current_app.logger.error(traceback.format_exc())
         raise
-        # return {'error': 'an error ocurred, please try again.'}
