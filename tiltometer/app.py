@@ -15,7 +15,7 @@ application = Flask(__name__)
 # redirect all non existing urls to index.html
 @application.errorhandler(404)
 def page_not_found(error):
-    return render_template('404.html'), 404
+    return render_template('404.html', host=DOMAIN), 404
 
 
 @application.route('/', methods=['GET'])

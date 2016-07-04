@@ -24,6 +24,7 @@ Small web app that shows the measurement of a LOL's player level of tilt
     * `pip install -r requirements.txt`
     * Remember to create `src/keys.py` file and write the following line: `API_KEY="YOUR_RIOT_GAMES_API_KEY"`
     * You can grab your API KEY [here](https://developer.riotgames.com/)
+    * Remember the `DOMAIN` var in the `config.py` file when using on production, it should be something like `DOMAIN = 'http://tilt-o-meter.patilla.es'`
 
 * _You are ready to execute the code!_
 
