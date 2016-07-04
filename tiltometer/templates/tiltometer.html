@@ -46,7 +46,7 @@
                         <label class="sr-only" for="summoner-text-input">Summoner name</label>
                         <input type="text" class="form-control" id="summoner-text-input" placeholder="Summoner Name">
                     </div>
-                    <button id="summoner-input-button" type="button" class="btn btn-warning" role="button" host="http://{{ request.host }}">Calculate Tilt!</button>
+                    <button id="summoner-input-button" type="button" class="btn btn-warning" role="button" host="{{ host}}">Calculate Tilt!</button>
                 </form>
             </div>
 
@@ -89,6 +89,7 @@
         </div>
     </body>
     <script type="text/javascript">
+        $HOST = "{{ host }}";
         $BACKGROUND = "{{ data.metadata.background|safe }}";
         $SUMMONER_NAME = "{{ data.summoner_name|safe }}";
         $TILT_LEVEL = "{{ data.tilt_level|safe }}";

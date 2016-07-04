@@ -5,6 +5,7 @@ from flask import jsonify
 from flask import render_template
 from flask import request
 
+from config import DOMAIN
 from tiltometer import get_tilt
 from tilt_exceptions import SummonerNotFound
 
@@ -19,7 +20,7 @@ def page_not_found(error):
 
 @application.route('/', methods=['GET'])
 def index():
-    return render_template('index.html', request=request)
+    return render_template('index.html', request=request, host=DOMAIN)
 
 
 @application.route('/tilt-o-meter/<area>/<summoner_name>', methods=['GET'])
@@ -27,7 +28,7 @@ def tiltometer(area, summoner_name):
     print 'AREA', area
     try:
         data = get_tilt(area, summoner_name)
-        return render_template('tiltometer.html', data=data)
+        return render_template('tiltometer.html', data=data, host=DOMAIN)
     except SummonerNotFound as e:
         return render_template('404.html',
                                request=request,
