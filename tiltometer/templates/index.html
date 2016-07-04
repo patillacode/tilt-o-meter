@@ -9,7 +9,7 @@
     <body class="container black-bg">
         <div id="header" class="header clear-fix">
             <p class="text-center">
-                <a href="http://{{ request.host }}" class="tilt-font">tilt-o-meter</a>
+                <a href="{{ host }}" class="tilt-font">tilt-o-meter</a>
             </p>
         </div><!-- /header -->
         <div id="get-tilt-form">
@@ -32,7 +32,7 @@
                     <label class="sr-only" for="summoner-text-input">Summoner name</label>
                     <input type="text" class="form-control" id="summoner-text-input" placeholder="Summoner Name">
                 </div>
-                <button id="summoner-input-button" type="button" class="btn btn-warning" role="button" host="http://{{ request.host }}">Calculate Tilt!</button>
+                <button id="summoner-input-button" type="button" class="btn btn-warning" role="button">Calculate Tilt!</button>
             </form>
         </div>
     </body>

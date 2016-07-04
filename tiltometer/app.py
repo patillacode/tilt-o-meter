@@ -6,6 +6,7 @@ from flask import render_template
 from flask import request
 
 from config import DOMAIN
+
 from tiltometer import get_tilt
 from tilt_exceptions import SummonerNotFound
 
@@ -15,7 +16,7 @@ application = Flask(__name__)
 # redirect all non existing urls to index.html
 @application.errorhandler(404)
 def page_not_found(error):
-    return render_template('404.html', host=DOMAIN), 404
+    return render_template('404.html')
 
 
 @application.route('/', methods=['GET'])
