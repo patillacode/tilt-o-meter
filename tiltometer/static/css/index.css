@@ -30,3 +30,16 @@
   width: 100%;
   /* margin-left:25%; */
 }
+
+#explanation-text {
+    color: #fff;
+}
+
+#riot-disclaimer{
+    color: #aaa;
+}
+
+#explanation-text > p > a {
+    color: #ff6900;
+    font-size: 24pt;
+}

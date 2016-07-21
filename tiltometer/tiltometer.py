@@ -1,3 +1,4 @@
+import datetime
 import random
 import sys
 import traceback
@@ -6,8 +7,8 @@ import config
 
 from flask import current_app
 
-from riotwatcher import RiotWatcher
 from riotwatcher import LoLException
+from riotwatcher import RiotWatcher
 
 from keys import API_KEY
 from tilt_exceptions import SummonerNotFound
@@ -55,6 +56,9 @@ def get_stats(games, champions_dict):
         if game['stats']['win']:
             win = True
 
+        date = datetime.datetime.fromtimestamp(game['createDate'] / 1000)
+        date = date.strftime('%d/%b %H:%M')
+
         g = {'kills': kills,
              'deaths': deaths,
              'assists': assists,
@@ -64,7 +68,8 @@ def get_stats(games, champions_dict):
              'pentakill': pentakill,
              'time': '{0}:{1}'.format(time / 60, str(time % 60).zfill(2)),
              'game_type': game_type,
-             'win': win}
+             'win': win,
+             'date': date}
 
         stats.append(g)
 
@@ -101,13 +106,20 @@ def get_tilt_level(games):
     cold_streak = 0
 
     for game in games:
+        # When practising vs BOTS or custom games you never get tilted,
+        # so they don't count. We even take 5 points off the tilt level,
+        # since they are just for fun
+        if ('BOT' or 'NONE') in game['subType']:
+            tilt_points -= 5
+            continue
+
         this_game_tilt_points = 0
 
         if not game['stats']['win']:
-            # 0.8 tilt points for every game lost
+            # 0.5 tilt points for every game lost
             # bigger multiplier the more recent the game was
-            this_game_tilt_points += 0.8 * multiplier
-            tilt_points += 0.8 * multiplier
+            this_game_tilt_points += 0.5 * multiplier
+            tilt_points += 0.5 * multiplier
             # add cold strak points
             cold_streak += 1
 
@@ -125,7 +137,7 @@ def get_tilt_level(games):
         if cold_streak > 1:
             tilt_points += cold_streak * (multiplier / 2)
 
-            this_game_tilt_points += cold_streak * multiplier
+            this_game_tilt_points += cold_streak * (multiplier / 2)
 
         kda = get_kda(game['stats'].get('championsKilled', 0),
                       game['stats'].get('numDeaths', 0),
@@ -133,21 +145,32 @@ def get_tilt_level(games):
 
         # if your KDA is low... tilt points for you!
         if kda < 1:
-            tilt_points += 1.5 * multiplier
-            this_game_tilt_points += 1.5 * multiplier
-        elif kda < 2:
             tilt_points += multiplier
             this_game_tilt_points += multiplier
+        elif kda < 2:
+            tilt_points += 0.75 * multiplier
+            this_game_tilt_points += 0.75 * multiplier
         elif kda < 3:
             tilt_points += 0.5 * multiplier
             this_game_tilt_points += 0.5 * multiplier
         else:
-            # if your kda is over 3 you did fairly well and you are happy
+            # if your kda is over 3 you did very well and you are happy
             # let's get some tilt point off of you ^^
             tilt_points -= multiplier
             this_game_tilt_points -= multiplier
 
+        # When playing a normal game tilt exists but is not the same as rankeds
+        # since you play just to practice, sometimes troll etc...
+        if 'NORMAL' in game['subType']:
+            tilt_points -= (this_game_tilt_points / 3)
+
         multiplier -= 1
+        print 'this_game_tilt_points {0},{1},{2} * {3} * {4}'.format(
+            game['stats'].get('championsKilled', 0),
+            game['stats'].get('numDeaths', 0),
+            game['stats'].get('assists', 0),
+            this_game_tilt_points,
+            game['subType'])
     if tilt_points > 100:
         return 100
     elif tilt_points < 1:

@@ -61,6 +61,7 @@
                             <th>KDA</th>
                             <th>Time</th>
                             <th>Mode</th>
+                            <th>Date</th>
                             <th colspan="2"></th>
                         </tr>
                     </thead>
@@ -76,6 +77,7 @@
                                 <td>{{ item.kills }}/{{ item.deaths }}/{{ item.assists }}</td>
                                 <td>{{ item.time }}</td>
                                 <td>{{ item.game_type }}</td>
+                                <td>{{ item.date }}</td>
                                 {% if item.win %}
                                     <td colspan="2"><img class="win-lose-logo" src="{{ url_for('static', filename='img/victory.png') }}" alt="victory"></td>
                                 {% else %}
