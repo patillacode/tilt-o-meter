@@ -165,12 +165,7 @@ def get_tilt_level(games):
             tilt_points -= (this_game_tilt_points / 3)
 
         multiplier -= 1
-        print 'this_game_tilt_points {0},{1},{2} * {3} * {4}'.format(
-            game['stats'].get('championsKilled', 0),
-            game['stats'].get('numDeaths', 0),
-            game['stats'].get('assists', 0),
-            this_game_tilt_points,
-            game['subType'])
+
     if tilt_points > 100:
         return 100
     elif tilt_points < 1:

@@ -2,8 +2,7 @@
     font-size: 66pt;
     color: #ff6900;
     text-decoration: none;
-    /*-webkit-text-stroke: 1px #ff6900;*/
-    /*-webkit-text-fill-color: #fff;*/
+
 }
 
 .black-bg {
@@ -20,15 +19,12 @@
 
 #summoner-input-button {
     background-color: #ff6900;
-    /* margin: auto; */
-    /* display: block; */
-    /* width: 100%; */
+
     outline: none;
 }
 
 #summoner-text-input {
   width: 100%;
-  /* margin-left:25%; */
 }
 
 #explanation-text {
