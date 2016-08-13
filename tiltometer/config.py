@@ -1,6 +1,6 @@
 DOMAIN = 'http://127.0.0.1:8080'
 
-PATCH_VERSION = "6.10.1"
+PATCH_VERSION = "6.16.1"
 RIOT_STATIC_SERVER_URL = "http://ddragon.leagueoflegends.com"
 
 CHAMPION_ICON_URL = "{0}/cdn/{1}/img/champion/".format(
