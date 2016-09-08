@@ -1,6 +1,6 @@
 DOMAIN = 'http://tilt-o-meter.patilla.es'
 
-PATCH_VERSION = "6.16.1"
+PATCH_VERSION = "6.18.1"
 RIOT_STATIC_SERVER_URL = "http://ddragon.leagueoflegends.com"
 
 CHAMPION_ICON_URL = "{0}/cdn/{1}/img/champion/".format(
