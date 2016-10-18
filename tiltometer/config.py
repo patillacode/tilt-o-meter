@@ -1,4 +1,5 @@
-DOMAIN = 'http://tilt-o-meter.patilla.es'
+# DOMAIN = 'http://tilt-o-meter.patilla.es'
+DOMAIN = 'http://tiltometer.lol'
 
 PATCH_VERSION = "6.20.1"
 RIOT_STATIC_SERVER_URL = "http://ddragon.leagueoflegends.com"
