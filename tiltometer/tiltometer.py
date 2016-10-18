@@ -131,7 +131,9 @@ def get_tilt_level(games):
                 this_game_tilt_points += multiplier
         else:
             cold_streak = 0
-
+            # you won the game, that should count for something right?
+            tilt_points -= 5
+            this_game_tilt_points -= 5
             # if you won a game under 25 minutes probably means the
             # opponents forfited or you crushed them
             # multiplier for the more recent the game was
@@ -153,26 +155,24 @@ def get_tilt_level(games):
         # if your KDA is low... tilt points for you!
         if kda < 1:
             # tilt_points += 1.25 * multiplier
-            tilt_points += 10
+            tilt_points += 8
             # this_game_tilt_points += 1.25 * multiplier
-            this_game_tilt_points += 10
+            this_game_tilt_points += 8
         elif kda < 2:
             # tilt_points += 0.75 * multiplier
-            tilt_points += 5
+            tilt_points += 3
             # this_game_tilt_points += 0.75 * multiplier
-            this_game_tilt_points += 5
+            this_game_tilt_points += 3
         elif kda < 3:
-            # tilt_points += 0.5 * multiplier
-            tilt_points += 2
-            # this_game_tilt_points += 0.5 * multiplier
-            this_game_tilt_points += 2
+            tilt_points += 1
+            this_game_tilt_points += 1
         else:
             # if your kda is over 3 you did very well and you are happy
             # let's get some tilt point off of you ^^
             # tilt_points -= multiplier
-            tilt_points -= 1
+            tilt_points -= 3
             # this_game_tilt_points -= multiplier
-            this_game_tilt_points -= 1
+            this_game_tilt_points -= 3
 
         # When playing a normal game tilt exists but is not the same as rankeds
         # since you play just to practice, sometimes troll etc...
