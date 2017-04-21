@@ -2,6 +2,7 @@
 DOMAIN = 'http://tiltometer.lol'
 
 PATCH_VERSION = "7.8.1"
+
 RIOT_STATIC_SERVER_URL = "http://ddragon.leagueoflegends.com"
 
 CHAMPION_ICON_URL = "{0}/cdn/{1}/img/champion/".format(
