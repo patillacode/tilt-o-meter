@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tilt-o-meter</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tiltometer.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body class="container">
+        <div id="fixed-background">
+            <div id="background-image"></div>
+        </div>
+
+        <div id="header" class="header clear-fix">
+            <p class="text-center">
+                <a href="{{ url_for('tiltometer.index') }}" class="tilt-font">tilt-o-meter</a>
+            </p>
+        </div><!-- /header -->
+        <hr>
+        <div id="content" class="container">
+
+            <section id="tiltometer-section" class"text-center ">
+                <p>Tilt: {{data.tilt_level}}</p>
+            </section>
+
+            <p class="clearfix"></p>
+
+            <!-- <button id="show-stats-button" role="button" type="button" class="btn-lg btn-warning">Stats</button> -->
+            <div id="get-tilt-form">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <select id="area-select" name="area">
+                            <option value="br">BR</option>
+                            <option value="eune">EUNE</option>
+                            <option value="euw1" selected="selected">EUW</option>
+                            <option value="kr">KR</option>
+                            <option value="lan">LAN</option>
+                            <option value="las">LAS</option>
+                            <option value="na">NA</option>
+                            <option value="oce">OCE</option>
+                            <option value="ru">RU</option>
+                            <option value="tr">TR</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="summoner-text-input">Summoner name</label>
+                        <input type="text" class="form-control" id="summoner-text-input" placeholder="Summoner Name" required="">
+                    </div>
+                    <button id="summoner-input-button" type="submit" class="btn btn-warning" role="button">Calculate Tilt!</button>
+                </form>
+            </div>
+
+            <p class="clearfix"></p>
+
+            <section id="stats-section">
+                <table id="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Champion</th>
+                            <th>Lane</th>
+                            <th>KDA</th>
+                            <th>Time</th>
+                            <th>Mode</th>
+                            <th>Date</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data.stats %}
+                            {% if item.pentakill %}
+                                <tr class="pentakill">
+                            {% else%}
+                                <tr>
+                            {% endif %}
+                                <td><img class="champion-logo" src="{{ item.champion_img }}" alt=""></td>
+                                <td>{{ item.position }}</td>
+                                <td>{{ item.kills }}/{{ item.deaths }}/{{ item.assists }}</td>
+                                <td>{{ item.time }}</td>
+                                <td>{{ item.match_type }}</td>
+                                <td>{{ item.date }}</td>
+                                {% if item.win %}
+                                    <td colspan="2"><img class="win-lose-logo" src="{{ url_for('static', filename='img/victory.png') }}" alt="victory"></td>
+                                {% else %}
+                                    <td colspan="2"><img class="win-lose-logo" src="{{ url_for('static', filename='img/defeat.png') }}" alt="defeat"></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </body>
+    <script type="text/javascript">
+        $HOST = "{{ host }}";
+        $BACKGROUND = "{{ data.metadata.background|safe }}";
+        $SUMMONER_NAME = "{{ data.summoner_name|safe }}";
+        $TILT_LEVEL = "{{ data.tilt_level|safe }}";
+        // alert($BACKGROUND);
+    </script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tiltometer.js') }}"></script>
+
+</html>

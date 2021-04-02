@@ -1,0 +1,147 @@
+/**
+ * Copyright (C) 2015 Pimpositor
+ * License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
+ *
+ * Some open source application is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * Some open source application is distributed in the hope that it will
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * <http://www.gnu.org/licenses/>.
+ *
+ * @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
+*/
+
+#fixed-background {
+    z-index: -99999;
+    position: fixed;
+    height: 100%;
+    width:100%;
+    left:0;
+    top:0;
+
+}
+
+#background-image {
+    height: 100%;
+    width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right top;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 50px;
+    background-color: #000;
+    text-shadow: 2px 0 0 #fff,
+             -2px 0 0 #fff,
+             0 2px 0 #fff,
+             0 -2px 0 #fff,
+             1px 1px #fff,
+             -1px -1px 0 #fff,
+             1px -1px 0 #fff,
+             -1px 1px 0 #fff;
+}
+
+.header > p > a {
+    font-size: 27pt;
+    color: #ff6900;
+    text-decoration: none;
+}
+
+#content {
+    padding-top: 50px;
+}
+
+#tiltometer-section {
+    background: rgb(25, 25, 25); /* The Fallback */
+    background: rgba(25, 25, 25, 0.5);
+}
+
+#show-stats-button {
+    background-color: #ff6900;
+    margin: auto;
+    display: block;
+    width: 100%;
+    outline: none;
+}
+
+#stats-section{
+    width: 100%;
+    margin: auto;
+    /* display: none; */
+}
+
+table {
+    /* font-family: Helvetica, Arial, sans-serif; */
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: white;
+    table-layout: fixed;
+}
+
+td, th {
+    border-bottom: 1px solid #666; /* No visible border */
+    /* height: 30px; */
+    transition: all 0.3s;  /* Simple transition for hover effect */
+    background-color: rgba(100, 100, 100);
+    background-color: rgba(100, 100, 100, 0.75);
+}
+
+th {
+    /* background: #DFDFDF;   */
+    font-weight: bold;
+    text-align: center;
+    padding: 12px 0;
+}
+
+td {
+    /* background: #FAFAFA; */
+    text-align: center;
+    width
+}
+
+/* td:nth-child(1) {
+    width: 120px;
+} */
+
+td:nth-child(3) {
+    font-weight: bolder;
+    /* font-size: 15pt; */
+    color: yellow;
+}
+
+.champion-logo {
+    width: 100%;
+}
+
+.win-lose-logo {
+    width: 50%;
+}
+
+.pentakill {
+    border: 3px solid red;
+}
+/* Cells in even rows (2,4,6...) are one color */
+/* tr:nth-child(even) td { background: #F1F1F1; } */
+
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
+/* tr:nth-child(odd) td { background: #FEFEFE; } */
+
+/* Hover cell effect! */
+/* tr td:hover { background: #666; color: #FFF; }  */
+
