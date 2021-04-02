@@ -3,8 +3,6 @@ venv/
 *.pyc
 __pycache__/
 
-instance/
-
 .DS_Store
 .pytest_cache/
 .coverage
@@ -14,5 +12,5 @@ dist/
 build/
 *.egg-info/
 
-
+secrets.py
 !.keep

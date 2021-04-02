@@ -7,9 +7,6 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
     <body class="container">
-        <div id="fixed-background">
-            <div id="background-image"></div>
-        </div>
 
         <div id="header" class="header clear-fix">
             <p class="text-center">
@@ -17,7 +14,7 @@
             </p>
         </div><!-- /header -->
         <hr>
-        <div id="content" class="container">
+        <div id="content" class="container black-bg">
 
             <section id="tiltometer-section" class"text-center ">
                 <p>Tilt: {{data.tilt_level}}</p>
