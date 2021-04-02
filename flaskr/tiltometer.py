@@ -16,14 +16,14 @@ lol_watcher = LolWatcher(RIOT_API_KEY)
 champions_data = get_champions_data(lol_watcher, 'euw1')
 
 
-@bp.route('/')
+@bp.route('/', methods=('GET',))
 def index():
     return render_template(
         'index.html', request=request, host=current_app.config.get('DOMAIN')
     )
 
 
-@bp.route('/tilt-o-meter/<region>/<summoner_name>', methods=('GET',))
+@bp.route('/tilt-o-meter/<region>/<summoner_name>', methods=('POST',))
 def tiltometer(region, summoner_name):
     try:
         tiltometer = Tiltometer(lol_watcher, region, summoner_name, champions_data)

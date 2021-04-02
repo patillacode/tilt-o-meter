@@ -1,50 +1,46 @@
-/**
- * Copyright (C) 2015 Pimpositor
- * License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
- *
- * Some open source application is free software: you can redistribute
- * it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
- *
- * Some open source application is distributed in the hope that it will
- * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * <http://www.gnu.org/licenses/>.
- *
- * @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
-*/
-
-/* #fixed-background {
-    z-index: -99999;
-    position: fixed;
-    height: 100%;
-    width:100%;
-    left:0;
-    top:0;
-
-} */
-
-#background-image {
-    height: 100%;
-    width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: right top;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-#header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
+@font-face {
+  font-family: 'Swiftel';
+  src: url('../fonts/Swiftel.woff2') format('woff2'),
+       url('../fonts/Swiftel.woff') format('woff'),
+       url('../fonts/Swiftel.ttf') format('truetype');
+}
+
+html {
+  background-color: #333;
+  color: #fff;
+}
+
+p {
+    margin: 0.5rem 0;
+    line-height: 1.5rem;
+}
+
+
+.text-center {
+    text-align: center;
+}
+
+.container {
+    /* switch to 100% for mobile */
+    width: 72%;
+    margin: auto;
+}
+
+.tilt-font {
+    font-family: 'Swiftel';
+    color: #ff6900;
+    text-decoration: none;
+}
+
+/* INDEX */
+.header {
+    padding: 0.5rem 0;
     width: 100%;
-    height: 50px;
     background-color: #000;
     text-shadow: 2px 0 0 #fff,
              -2px 0 0 #fff,
@@ -56,10 +52,131 @@
              -1px 1px 0 #fff;
 }
 
-.header > p > a {
+.header__link {
     font-size: 27pt;
     color: #ff6900;
     text-decoration: none;
+}
+
+.introduction {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.introduction__header {
+    width: 100%
+}
+
+.introduction__link {
+    font-size: 24pt;
+}
+
+.introduction__link--smaller {
+    font-size: 18pt;
+}
+
+.introduction__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style-type: none;
+    margin: 2rem 0;
+}
+
+.introduction__list > li {
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+.separator {
+    margin: 2rem auto;
+    width: 72%;
+    border: none;
+    height: 2px;
+    background-color: #eee;
+}
+
+.form {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.form__fields {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+
+}
+
+.form__fields > select {
+    padding: 0.5rem;
+    margin-right: 1rem;
+    width: 12%;
+}
+
+.form__fields > input {
+    padding: 0.5rem;
+    width: 88%;
+}
+
+.form__actions {
+    width: 100%;
+}
+
+.form__submit {
+    display: block;
+    padding: 0.5rem 1rem;
+    background-color: #ff6900;
+    color: white;
+    margin: auto;
+    margin-top: 1rem;
+    font-size: 15pt;
+    width: 100%;
+}
+
+
+#riot-disclaimer{
+    color: #aaa;
+}
+
+
+
+
+.tilt-font:hover {
+    text-decoration: underline;
+}
+
+#get-tilt-form {
+  text-align: center;
+}
+
+#area-select {
+  width: 100%;
+  appearance:textfield;
+  -moz-appearance:textfield; /* Firefox */
+  -webkit-appearance:textfield; /* Safari and Chrome */
+  height: 33px;
+  background-color: #00FEFE;
+  border: none;
+}
+
+
+
+/* TILTOMETER */
+#background-image {
+    height: 100%;
+    width:100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right top;
 }
 
 #content {

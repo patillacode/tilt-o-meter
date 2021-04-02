@@ -15,8 +15,8 @@ def create_app(test_config=None):
         os.environ.get('APP_SETTINGS', 'flaskr.config.ProductionConfig')
     )
 
-    # app.register_error_handler(404, error_handler)
-    # app.register_error_handler(500, error_handler)
+    app.register_error_handler(404, error_handler)
+    app.register_error_handler(500, error_handler)
 
     app.register_blueprint(tiltometer.bp)
 

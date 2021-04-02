@@ -2,20 +2,17 @@
 <html>
     <head>
         <title>Tilt-o-meter</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tiltometer.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='js/tiltometer.js') }}" async></script>
     </head>
-    <body class="container black-bg">
-        <div id="header" class="header clear-fix">
-            <p class="text-center">
-                <a href="/" class="tilt-font">tilt-o-meter</a>
-            </p>
-        </div><!-- /header -->
-        <div id="get-tilt-form">
-            <form class="form-inline">
-                <div class="form-group">
-                    <select id="area-select" name="area">
+    <body class="">
+        <header class="header">
+            <h1 class="text-center"><a href="/" class="tilt-font header__link">tilt-o-meter</a></h1>
+        </header>
+        <section class="container">
+            <form class="form" method="post" onsubmit="return false;">
+                <div class="form__fields">
+                    <select name="region">
                         <option value="br">BR</option>
                         <option value="eune">EUNE</option>
                         <option value="euw1" selected="selected">EUW</option>
@@ -27,32 +24,42 @@
                         <option value="ru">RU</option>
                         <option value="tr">TR</option>
                     </select>
+
+                    <input type="text" class="" name="summoner_name" placeholder="Summoner Name" required>
                 </div>
-                <div class="form-group">
-                    <label class="sr-only" for="summoner-text-input">Summoner name</label>
-                    <input type="text" class="form-control" id="summoner-text-input" placeholder="Summoner Name" required>
+                <div class="form__actions">
+                    <button type="submit" class="form__submit" onclick="sendForm();">Calculate Tilt!</button>
                 </div>
-                <button id="summoner-input-button" type="submit" class="btn btn-warning" role="button">Calculate Tilt!</button>
             </form>
-        </div>
-        <hr>
-        <div id="explanation-text" class="lead">
-            <p>Welcome to the <a href="{{ host }}" class="tilt-font">tilt-o-meter</a> app. </p>
-            <p>Want to know your level of <em>tilt</em> when playing LOL? </p>
-            <p>Wanna see if your friend is tilted because of a cold streak?</p>
-            <p>Can you bring the <a href="{{ host }}" class="tilt-font">tilt-o-meter</a> to zero before than your friends?</p>
+        </section>
+        <hr class="separator">
+        <section class="introduction container">
+            <header class="introduction__header text-center">
+                <h2>Welcome to the <a href="/" class="introduction__link tilt-font">tilt-o-meter</a> app.</h2>
+            </header>
+            <ul class="introduction__list text-center">
+                <li>Want to know your level of <em>tilt</em> when playing LOL? </li>
+                <li>Wanna see if your friend is tilted because of a cold streak?</li>
+                <li>Can you bring the <a href="/" class="tilt-font introduction__link--smaller">tilt-o-meter</a> to zero before than your friends?</li>
+            </ul>
             <p>Go for it! Play League Of Legends at your best and see if you can bring the meter to its lowest point!</p>
-            <hr>
-            <p class="small text-center"><a href="{{ host }}" class="tilt-font">tilt-o-meter</a> is a satirical, personal, project with an arbitrary logarithm.</p>
-            <p class="small text-center">Our goal is to have fun among friends, to try to play at your best each game, and keep the meter as low as possible!</p>
-            <hr>
-            <p class="text-center">This site does not provide real information other than the last games results.</p>
-            <p class="text-center">This application is purely a satire, a joke, a laugh and a tool to compete with your friends.</p>
-            <p id="riot-disclaimer" class="small text-center">
-                <small>
-                    <em>Tilt-o-meter isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends &copy; Riot Games, Inc.</em>
-                </small>
+        </section>
+        <hr class="separator">
+        <section class="container">
+            <p class=""><a href="/" class="tilt-font introduction__link--smaller">tilt-o-meter</a> is a satirical, personal, project with an arbitrary logarithm.</p>
+            <p class="">Our goal is to have fun among friends, to try to play at your best each game, and keep the meter as low as possible!</p>
+            <p class="">This site does not provide real information other than the last games results.</p>
+            <p class="">This application is purely a satire, a joke, a laugh and a tool to compete with your friends.</p>
+            <p id="riot-disclaimer" class="">
             </p>
-        </div>
+        </section>
+        <hr class="separator">
+        <section class="container">
+            <small>
+                <em>Tilt-o-meter isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends &copy; Riot Games, Inc.</em>
+            </small>
+        </section>
+
+
     </body>
 </html>
