@@ -1,65 +1,27 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>tilt-o-meter</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tiltometer.css') }}">
-        <script type="text/javascript" src="{{ url_for('static', filename='js/tiltometer.js') }}" async></script>
-    </head>
-    <body>
-        <header class="header">
-            <h1 class="text-center"><a href="/" class="tilt-font header__link">tilt-o-meter</a></h1>
+{% extends 'base.html' %}
+
+{% block title %}tilt-o-welcome | {% endblock %}
+
+{% block content %}
+    <section class="introduction container">
+        <header class="introduction__header text-center">
+            <h2>Welcome to the <a href="/" class="introduction__link tilt-font">tilt-o-meter</a> app.</h2>
         </header>
-        <section class="container">
-            <form class="form" method="post" onsubmit="return false;">
-                <div class="form__fields">
-                    <select name="region">
-                        <option value="br1">BR</option>
-                        <option value="eune1">EUNE</option>
-                        <option value="euw1" selected="selected">EUW</option>
-                        <option value="kr1">KR</option>
-                        <option value="lan1">LAN</option>
-                        <option value="las1">LAS</option>
-                        <option value="na1">NA</option>
-                        <option value="oce1">OCE</option>
-                        <option value="ru1">RU</option>
-                        <option value="tr1">TR</option>
-                    </select>
+        <ul class="introduction__list">
+            <li>Want to know your level of <em>tilt</em> when playing LOL? </li>
+            <li>Wanna see if your friend is tilted because of a cold streak?</li>
+            <li>Can you bring the <span class="tilt-font introduction__link--smaller">tilt-o-meter</span> to zero before than your friends?</li>
+            <li>Play LoL at your best and bring the meter to its lowest point!</li>
+        </ul>
+    </section>
+    <hr class="separator">
+    <section class="container">
+        <p class=""><span class="tilt-font introduction__link--smaller">tilt-o-meter</span> is a satirical, personal, project with an arbitrary logarithm.</p>
+        <p class="">Our goal is to have fun among friends, to try to play at your best each game, and keep the meter as low as possible!</p>
+        <p class="">This site does not provide real information other than the last games results.</p>
+        <p class="">This application is purely a satire, a joke, a laugh and a tool to compete with your friends.</p>
+        <p id="riot-disclaimer" class="">
+        </p>
+    </section>
+{% endblock %}
 
-                    <input type="text" class="" name="summoner_name" placeholder="Summoner Name" required>
-                </div>
-                <div class="form__actions">
-                    <button type="submit" class="form__submit" onclick="sendForm();">Calculate tilt!</button>
-                </div>
-            </form>
-        </section>
-        <hr class="separator">
-        <section class="introduction container">
-            <header class="introduction__header text-center">
-                <h2>Welcome to the <a href="/" class="introduction__link tilt-font">tilt-o-meter</a> app.</h2>
-            </header>
-            <ul class="introduction__list text-center">
-                <li>Want to know your level of <em>tilt</em> when playing LOL? </li>
-                <li>Wanna see if your friend is tilted because of a cold streak?</li>
-                <li>Can you bring the <span class="tilt-font introduction__link--smaller">tilt-o-meter</span> to zero before than your friends?</li>
-            </ul>
-            <p>Go for it! Play League Of Legends at your best and see if you can bring the meter to its lowest point!</p>
-        </section>
-        <hr class="separator">
-        <section class="container">
-            <p class=""><span class="tilt-font introduction__link--smaller">tilt-o-meter</span> is a satirical, personal, project with an arbitrary logarithm.</p>
-            <p class="">Our goal is to have fun among friends, to try to play at your best each game, and keep the meter as low as possible!</p>
-            <p class="">This site does not provide real information other than the last games results.</p>
-            <p class="">This application is purely a satire, a joke, a laugh and a tool to compete with your friends.</p>
-            <p id="riot-disclaimer" class="">
-            </p>
-        </section>
-        <hr class="separator">
-        <section class="container">
-            <small>
-                <em>Tilt-o-meter isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends &copy; Riot Games, Inc.</em>
-            </small>
-        </section>
-
-
-    </body>
-</html>

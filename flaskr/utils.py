@@ -87,7 +87,7 @@ class Tiltometer:
         except ApiError as err:
 
             error_message = (
-                f'We should retry in {err.response.headers["Retry-After"]} seconds.\n'
+                f'We should retry in a few seconds: {err.response.headers}\n'
                 'This retry-after is handled by default by the RiotWatcher library, '
                 'future requests wait until the retry-after time passes'
             )
@@ -96,6 +96,7 @@ class Tiltometer:
                 current_app.logger.error(error_message)
             else:
                 current_app.logger.error('error code:', err.response.status_code)
+                current_app.logger.error('headers:', err.response.headers)
                 raise Exception(err)
 
     def get_summoner_data(self):
@@ -276,7 +277,7 @@ class Tiltometer:
         except ApiError as err:
 
             error_message = (
-                f'We should retry in {err.response.headers["Retry-After"]} seconds.\n'
+                f'We should retry in a few seconds: {err.response.headers}\n'
                 'This retry-after is handled by default by the RiotWatcher library, '
                 'future requests wait until the retry-after time passes'
             )
@@ -285,6 +286,7 @@ class Tiltometer:
                 current_app.logger.error(error_message)
             else:
                 current_app.logger.error('error code:', err.response.status_code)
+                current_app.logger.error('headers:', err.response.headers)
                 raise Exception(err)
 
         response = {

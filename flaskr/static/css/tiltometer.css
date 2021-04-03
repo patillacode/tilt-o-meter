@@ -10,6 +10,18 @@
        url('../fonts/Swiftel.ttf') format('truetype');
 }
 
+:root {
+    --color-patilla: #ff6900;
+    --color-bad: rgba(220, 53, 69, 1);
+    --color-bad-opaque: rgba(220, 53, 69, 0.5);
+    --color-average: rgba(255, 193, 7, 1);
+    --color-average-opaque: rgba(255, 193, 7, 0.5);
+    --color-good: rgba(23, 162, 184, 1);
+    --color-good-opaque: rgba(23, 162, 184, 0.5);
+    --color-carried: rgba(40, 167, 69, 1);
+    --color-carried-opaque: rgba(40, 167, 69, 0.5);
+}
+
 html {
   background-color: #666;
   color: #fff;
@@ -34,7 +46,7 @@ p {
 
 .tilt-font {
     font-family: 'Swiftel';
-    color: #ff6900;
+    color: var(--color-patilla);
     text-decoration: none;
 }
 
@@ -59,7 +71,7 @@ p {
 
 .header__link {
     font-size: 40pt;
-    color: #ff6900;
+    color: var(--color-patilla);
     text-decoration: none;
 }
 
@@ -87,16 +99,25 @@ p {
 }
 
 .introduction__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     list-style-type: none;
     margin: 2rem 0;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(30vw, 1fr));
+
+    width: 100%;
 }
 
 .introduction__list > li {
     margin: 0.5rem 0;
-    width: 100%;
+}
+
+.introduction__list > li:nth-of-type(odd) {
+    text-align: left;
+}
+
+.introduction__list > li:nth-of-type(even) {
+    text-align: right;
 }
 
 .separator {
@@ -139,37 +160,9 @@ p {
 }
 
 .form__submit {
-    display: block;
     padding: 0.5rem 1rem;
-    background-color: #ff6900;
+    background-color: var(--color-patilla);
     color: black;
-    margin: auto;
-    margin-top: 1rem;
-    font-size: 21pt;
-    width: 100%;
-
-/*     display: block;
-    padding: 0.5rem 1rem;
-    background-color: #ff6900;
-    color: #ff6900;
-    margin: auto;
-    margin-top: auto;
-    margin-top: 1rem;
-    font-size: 21pt;
-    width: 100%;
-    font-family: 'Swiftel';
-    border: none;
-    background: transparent;
-
-    text-shadow: 2px 0 0 #fff,
-             -2px 0 0 #fff,
-             0 2px 0 #fff,
-             0 -2px 0 #fff,
-             1px 1px #fff,
-             -1px -1px 0 #fff,
-             1px -1px 0 #fff,
-             -1px 1px 0 #fff; */
-
 }
 
 /* TILTOMETER */
@@ -203,7 +196,7 @@ p {
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    width: 80%;
+    width: 72%;
     margin: 1rem auto;
 }
 .data_table thead tr {
@@ -225,27 +218,59 @@ p {
     background-color: #555;
 }
 
-.data_table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-.data_table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-}
-
 .data_table tbody tr td:nth-of-type(2) {
     font-weight: bold;
 }
 
 .kda_1 {
-    background-color: rgba(220, 53, 69, 0.5);
+    background-color: var(--color-bad-opaque);
 }
 .kda_2 {
-    background-color: rgba(255, 193, 7, 0.5);
+    background-color: var(--color-average-opaque);
 }
 .kda_3 {
-    background-color: rgba(23, 162, 184, 0.5);
+    background-color: var(--color-good-opaque);
 }
 .kda_4 {
-    background-color: rgba(40, 167, 69, 0.5);
+    background-color: var(--color-carried-opaque);
 }
+
+.tilt_level > span {
+    /* font-family: 'Swiftel'; */
+    font-weight: bold;
+    display: block;
+    font-style: italic;
+}
+
+.tilt_level_1 > span {
+    color: var(--color-bad);
+    /* border-bottom: 3px solid var(--color-bad); */
+}
+.tilt_level_1 > span::after {
+    content: "bad";
+}
+
+.tilt_level_2 > span {
+    color: var(--color-average);
+    /* border-bottom: 3px solid var(--color-average); */
+}
+.tilt_level_2 > span::after {
+    content: "average";
+}
+
+.tilt_level_3 > span {
+    color: var(--color-good);
+    /* border-bottom: 3px solid var(--color-good); */
+}
+.tilt_level_3 > span::after {
+    content: "good";
+}
+
+.tilt_level_4 > span {
+    color: var(--color-carried);
+    /* border-bottom: 3px solid var(--color-carried); */
+}
+.tilt_level_4 > span::after {
+    content: "carried";
+}
+
