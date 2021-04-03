@@ -2,6 +2,14 @@
 
 {% block title %}tilt-o-welcome | {% endblock %}
 
+{% block extra_js %}
+    <script type="text/javascript">
+        window.onload = function() {
+            toggleSpinner();
+        };
+    </script>
+{% endblock %}
+
 {% block content %}
     <section class="introduction container">
         <header class="introduction__header text-center">

@@ -1,4 +1,6 @@
 function sendForm() {
+    toggleSpinner();
+
     const form = document.forms[0];
     const region = form.elements[0].value;
     const summoner_name = form.elements[1].value;
@@ -10,22 +12,17 @@ function sendForm() {
     }
 }
 
-function drawTiltValue() {
-    console.log('drawing tilt value.....');
-    var tilt = document.getElementById('tilt-value').value;
-    var canvas = document.getElementById('tilt-chart');
-    var ctx = canvas.getContext('2d');
-    var x = canvas.width / 2;
-    var y = canvas.height / 2;
+function toggleSpinner() {
+    var spinner = document.getElementById('spinner');
+    var overlay = document.getElementById('overlay');
 
-    ctx.font = '24pt Swiftel';
-    ctx.fillStyle = '#ff6900';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(tilt, x, y);
-    console.log('done!');
+    if (spinner.style.display === 'none') {
+        spinner.style.display = 'block';
+        overlay.style.opacity = '0.3';
+    } else {
+        spinner.style.display = 'none';
+    }
 }
-
 
 function drawChart() {
     var tilt = document.getElementById('tilt-value').value;
@@ -52,9 +49,6 @@ function drawChart() {
         type: 'doughnut',
         data: data,
         options: {
-            // animation: {
-            //     onComplete: drawTiltValue()
-            // },
             animations: {
                 tension: {
                     duration: 5000,

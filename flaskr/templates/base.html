@@ -10,45 +10,47 @@
   </head>
 
   <body>
-        <header class="header">
-            <h1 class="text-center"><a href="/" class="tilt-font header__link">tilt-o-meter</a></h1>
-        </header>
-        {% block input_form %}
-          <section class="container">
-              <form class="form" method="post" onsubmit="return false;">
-                  <div class="form__fields">
-                      <select name="region">
-                          <option value="br1">BR</option>
-                          <option value="eun1">EUNE</option>
-                          <option value="euw1" selected="selected">EUW</option>
-                          <option value="jp1">JP</option>
-                          <option value="kr">KR</option>
-                          <option value="la1">LAN</option>
-                          <option value="la2">LAS</option>
-                          <option value="na1">NA</option>
-                          <option value="oc1">OCE</option>
-                          <option value="tr1">TR</option>
-                          <option value="ru">RU</option>
-                      </select>
+        <div id="spinner" class="lds-ripple"><div></div><div></div></div>
+        <div id="overlay">
+          <header class="header">
+              <h1 class="text-center"><a href="/" class="tilt-font header__link">tilt-o-meter</a></h1>
+          </header>
+          {% block input_form %}
+            <section class="container">
+                <form class="form" method="post" onsubmit="return false;">
+                    <div class="form__fields">
+                        <select name="region">
+                            <option value="br1">BR</option>
+                            <option value="eun1">EUNE</option>
+                            <option value="euw1" selected="selected">EUW</option>
+                            <option value="jp1">JP</option>
+                            <option value="kr">KR</option>
+                            <option value="la1">LAN</option>
+                            <option value="la2">LAS</option>
+                            <option value="na1">NA</option>
+                            <option value="oc1">OCE</option>
+                            <option value="tr1">TR</option>
+                            <option value="ru">RU</option>
+                        </select>
 
-                      <input type="text" class="" name="summoner_name" placeholder="Summoner Name" required>
-                      <button type="submit" class="form__submit" onclick="sendForm();">Calculate</button>
-                  </div>
-              </form>
-          </section>
+                        <input type="text" class="" name="summoner_name" placeholder="Summoner Name" required>
+                        <button type="submit" class="form__submit" onclick="sendForm();">Calculate</button>
+                    </div>
+                </form>
+            </section>
+            <hr class="separator">
+          {% endblock %}
+
+          {% block content %}{% endblock %}
+
           <hr class="separator">
-        {% endblock %}
-
-        {% block content %}{% endblock %}
-
-        <hr class="separator">
-        <section class="container text-center">
-            <small>
-                <p><em>Tilt-o-meter isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends.</em></p>
-                <p><em>League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends &copy; Riot Games, Inc.</em></p>
-            </small>
-        </section>
-
+          <section class="container text-center">
+              <small>
+                  <p><em>Tilt-o-meter isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends.</em></p>
+                  <p><em>League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends &copy; Riot Games, Inc.</em></p>
+              </small>
+          </section>
+        </div>
 
     </body>
 
