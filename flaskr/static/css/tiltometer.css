@@ -10,6 +10,11 @@
        url('../fonts/Swiftel.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'AdventPro';
+  src: url('../fonts/AdventPro-Regular.ttf') format('truetype');
+}
+
 :root {
     --color-patilla: #ff6900;
     --color-bad: rgba(220, 53, 69, 1);
@@ -143,12 +148,53 @@ p {
     justify-content: center;
 
 }
-
-.form__fields > select {
-    padding: 0.5rem;
-    margin-right: 1rem;
-    width: 12%;
+/* Reset Select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #666;
+  background-image: none;
 }
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.form__fields > select {
+  display: block;
+  line-height: 3;
+  background: var(--color-good);
+  overflow: hidden;
+  border-radius: .25em;
+  padding: 0 .5em;
+  color: #fff;
+  cursor: pointer;
+}
+/* Arrow */
+.form__fields > select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #34495e;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+/* Transition */
+.form__fields > select:hover::after {
+  color: #f39c12;
+}
+
+
 
 .form__fields > input {
     padding: 0.5rem;
@@ -169,12 +215,23 @@ p {
 
 .tilt-container {
     margin: 1rem auto;
+    display: flex;
+    justify-content: center;
 }
 
 .tilt-container__chart {
-    width: 25%;
-    min-width: 300px;
-    margin: auto;
+    max-width: 310px;
+}
+
+.tilt-container__tilt {
+    font-family: 'AdventPro';
+    font-size: 36pt;
+    color: var(--color-patilla);
+    text-align: center;
+    min-width: 310px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .champion-logo {
@@ -183,6 +240,7 @@ p {
 
 .win-lose-logo {
     width: 50%;
+    max-width: 10rem;
 }
 
 .pentakill {
@@ -236,7 +294,6 @@ p {
 }
 
 .tilt_level > span {
-    /* font-family: 'Swiftel'; */
     font-weight: bold;
     display: block;
     font-style: italic;
@@ -244,7 +301,6 @@ p {
 
 .tilt_level_1 > span {
     color: var(--color-bad);
-    /* border-bottom: 3px solid var(--color-bad); */
 }
 .tilt_level_1 > span::after {
     content: "bad";
@@ -252,7 +308,6 @@ p {
 
 .tilt_level_2 > span {
     color: var(--color-average);
-    /* border-bottom: 3px solid var(--color-average); */
 }
 .tilt_level_2 > span::after {
     content: "average";
@@ -260,7 +315,6 @@ p {
 
 .tilt_level_3 > span {
     color: var(--color-good);
-    /* border-bottom: 3px solid var(--color-good); */
 }
 .tilt_level_3 > span::after {
     content: "good";
@@ -268,7 +322,6 @@ p {
 
 .tilt_level_4 > span {
     color: var(--color-carried);
-    /* border-bottom: 3px solid var(--color-carried); */
 }
 .tilt_level_4 > span::after {
     content: "carried";

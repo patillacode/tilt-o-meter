@@ -10,11 +10,28 @@ function sendForm() {
     }
 }
 
+function drawTiltValue() {
+    console.log('drawing tilt value.....');
+    var tilt = document.getElementById('tilt-value').value;
+    var canvas = document.getElementById('tilt-chart');
+    var ctx = canvas.getContext('2d');
+    var x = canvas.width / 2;
+    var y = canvas.height / 2;
+
+    ctx.font = '24pt Swiftel';
+    ctx.fillStyle = '#ff6900';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(tilt, x, y);
+    console.log('done!');
+}
+
 
 function drawChart() {
-    console.log('DOM is ready.');
     var tilt = document.getElementById('tilt-value').value;
-    var ctx = document.getElementById('tilt-chart').getContext('2d');
+    var canvas = document.getElementById('tilt-chart');
+    var ctx = canvas.getContext('2d');
+
     const data = {
         labels: [
             'tilted',
@@ -35,6 +52,16 @@ function drawChart() {
         type: 'doughnut',
         data: data,
         options: {
+            // animation: {
+            //     onComplete: drawTiltValue()
+            // },
+            animations: {
+                tension: {
+                    duration: 5000,
+                    easing: 'linear',
+                    loop: true
+                }
+            },
             responsive: true,
             plugins: {
                 legend: {
@@ -51,4 +78,5 @@ function drawChart() {
             }
         },
     });
+
 }

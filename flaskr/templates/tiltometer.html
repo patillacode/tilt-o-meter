@@ -12,10 +12,13 @@
 {% endblock %}
 
 {% block content %}
-    <section class="tilt-container">
+    <section class="container tilt-container">
         <input type="hidden" id="tilt-value" name="tilt-value" value="{{ data.tilt_level}}">
         <div class="tilt-container__chart">
             <canvas id="tilt-chart"></canvas>
+        </div>
+        <div class="tilt-container__tilt">
+            <p>{{ data.tilt_level }}%</p>
         </div>
     </section>
 
