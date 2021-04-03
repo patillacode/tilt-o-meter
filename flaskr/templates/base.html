@@ -10,12 +10,15 @@
   </head>
 
   <body>
-        <div id="spinner" class="lds-ripple"><div></div><div></div></div>
+        <div id="spinner" class="lds-ripple">
+          <div class="tilt-font">Calculating...</div>
+          <div></div>
+        </div>
         <div id="overlay">
           <header class="header">
               <h1 class="text-center"><a href="/" class="tilt-font header__link">tilt-o-meter</a></h1>
           </header>
-          {% block input_form %}
+          <div class="sub-body">
             <section class="container">
                 <form class="form" method="post" onsubmit="return false;">
                     <div class="form__fields">
@@ -38,18 +41,17 @@
                     </div>
                 </form>
             </section>
+              <hr class="separator">
+
+            {% block content %}{% endblock %}
+
             <hr class="separator">
-          {% endblock %}
-
-          {% block content %}{% endblock %}
-
-          <hr class="separator">
-          <section class="container text-center">
-              <small>
-                  <p><em>Tilt-o-meter isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends.</em></p>
-                  <p><em>League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends &copy; Riot Games, Inc.</em></p>
-              </small>
-          </section>
+            <section class="container text-center">
+                <small>
+                    <p><em>Tilt-o-meter isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends.</em></p>
+                    <p><em>League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends &copy; Riot Games, Inc.</em></p>
+                </small>
+            </section>
         </div>
 
     </body>
