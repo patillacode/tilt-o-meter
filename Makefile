@@ -14,3 +14,17 @@ serve:
 	FLASK_APP=flaskr FLASK_ENV=development \
 	APP_SETTINGS=flaskr.config.DevelopmentConfig \
 	flask run --extra-files flaskr/templates/base.html:flaskr/templates/index.html:flaskr/utils.py:flaskr/static/css/tiltometer.css:flaskr/static/js/tiltometer.js
+
+docker-reset:
+	echo "Stopping container..." && \
+	docker stop tilt-o-meter && \
+	echo "Deleting container..." && \
+	docker rm tilt-o-meter && \
+	echo "Deleting image..." && \
+	docker rmi tilt-o-meter && \
+	echo "Rebuilding image..." && \
+	docker build --tag tilt-o-meter . && \
+	echo "Running new image in new container..." && \
+	docker run -d --name tilt-o-meter --publish 5051:5051 tilt-o-meter && \
+	echo "Set restart on failure..." && \
+	docker update --restart=on-failure tilt-o-meter
