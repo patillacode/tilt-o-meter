@@ -39,7 +39,7 @@
                     <input type="text" class="" name="summoner_name" placeholder="Summoner Name" required>
                 </div>
                 <div class="form__actions">
-                    <button type="submit" class="form__submit tilt-font" onclick="sendForm();">Calculate tilt!</button>
+                    <button type="submit" class="form__submit" onclick="sendForm();">Calculate tilt!</button>
                 </div>
             </form>
         </section>
@@ -97,4 +97,9 @@
         </section>
         </div>
     </body>
+    <script type="text/javascript">
+        window.onload = function() {
+            drawChart();
+        };
+    </script>
 </html>

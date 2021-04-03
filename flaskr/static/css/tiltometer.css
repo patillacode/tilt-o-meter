@@ -207,7 +207,7 @@ p {
     margin: 1rem auto;
 }
 .data_table thead tr {
-    background-color: rgba(255, 105, 0, 0.6);
+    background-color: #555;
     color: #ffffff;
     text-align: left;
 }
@@ -218,7 +218,7 @@ p {
 }
 
 .data_table tbody tr {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .data_table tbody tr:nth-of-type(even) {
@@ -238,14 +238,14 @@ p {
 }
 
 .kda_1 {
-    color: red;
+    background-color: rgba(220, 53, 69, 0.5);
 }
 .kda_2 {
-    color: orange;
+    background-color: rgba(255, 193, 7, 0.5);
 }
 .kda_3 {
-    color: blue;
+    background-color: rgba(23, 162, 184, 0.5);
 }
 .kda_4 {
-    color: green;
+    background-color: rgba(40, 167, 69, 0.5);
 }

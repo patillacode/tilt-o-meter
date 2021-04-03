@@ -52,8 +52,3 @@ function drawChart() {
         },
     });
 }
-
-
-window.onload = function() {
-    drawChart();
-};
