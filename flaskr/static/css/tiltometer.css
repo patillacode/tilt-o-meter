@@ -11,8 +11,9 @@
 }
 
 html {
-  background-color: #333;
+  background-color: #666;
   color: #fff;
+  font-size: 15pt;
 }
 
 p {
@@ -37,6 +38,10 @@ p {
     text-decoration: none;
 }
 
+.tilt-font:hover {
+    text-decoration: underline;
+}
+
 /* INDEX */
 .header {
     padding: 0.5rem 0;
@@ -53,7 +58,7 @@ p {
 }
 
 .header__link {
-    font-size: 27pt;
+    font-size: 40pt;
     color: #ff6900;
     text-decoration: none;
 }
@@ -70,10 +75,15 @@ p {
 
 .introduction__link {
     font-size: 24pt;
+    font-weight: 200;
 }
 
 .introduction__link--smaller {
     font-size: 18pt;
+}
+
+.introduction__link--smaller:hover {
+    text-decoration: none;
 }
 
 .introduction__list {
@@ -132,114 +142,46 @@ p {
     display: block;
     padding: 0.5rem 1rem;
     background-color: #ff6900;
-    color: white;
+    color: black;
     margin: auto;
     margin-top: 1rem;
-    font-size: 15pt;
+    font-size: 21pt;
     width: 100%;
+
+/*     display: block;
+    padding: 0.5rem 1rem;
+    background-color: #ff6900;
+    color: #ff6900;
+    margin: auto;
+    margin-top: auto;
+    margin-top: 1rem;
+    font-size: 21pt;
+    width: 100%;
+    font-family: 'Swiftel';
+    border: none;
+    background: transparent;
+
+    text-shadow: 2px 0 0 #fff,
+             -2px 0 0 #fff,
+             0 2px 0 #fff,
+             0 -2px 0 #fff,
+             1px 1px #fff,
+             -1px -1px 0 #fff,
+             1px -1px 0 #fff,
+             -1px 1px 0 #fff; */
+
 }
-
-
-#riot-disclaimer{
-    color: #aaa;
-}
-
-
-
-
-.tilt-font:hover {
-    text-decoration: underline;
-}
-
-#get-tilt-form {
-  text-align: center;
-}
-
-#area-select {
-  width: 100%;
-  appearance:textfield;
-  -moz-appearance:textfield; /* Firefox */
-  -webkit-appearance:textfield; /* Safari and Chrome */
-  height: 33px;
-  background-color: #00FEFE;
-  border: none;
-}
-
-
 
 /* TILTOMETER */
-#background-image {
-    height: 100%;
-    width:100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: right top;
+
+.tilt-container {
+    margin: 1rem auto;
 }
 
-#content {
-    padding-top: 50px;
-}
-
-#tiltometer-section {
-    background: rgb(25, 25, 25); /* The Fallback */
-    background: rgba(25, 25, 25, 0.5);
-}
-
-#show-stats-button {
-    background-color: #ff6900;
+.tilt-container__chart {
+    width: 25%;
+    min-width: 300px;
     margin: auto;
-    display: block;
-    width: 100%;
-    outline: none;
-}
-
-#stats-section{
-    width: 100%;
-    margin: auto;
-    /* display: none; */
-}
-
-table {
-    /* font-family: Helvetica, Arial, sans-serif; */
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    color: white;
-    table-layout: fixed;
-}
-
-td, th {
-    border-bottom: 1px solid #666; /* No visible border */
-    /* height: 30px; */
-    transition: all 0.3s;  /* Simple transition for hover effect */
-    background-color: rgba(100, 100, 100);
-    background-color: rgba(100, 100, 100, 0.75);
-}
-
-th {
-    /* background: #DFDFDF;   */
-    font-weight: bold;
-    text-align: center;
-    padding: 12px 0;
-}
-
-td {
-    /* background: #FAFAFA; */
-    text-align: center;
-    width
-}
-
-/* td:nth-child(1) {
-    width: 120px;
-} */
-
-td:nth-child(3) {
-    font-weight: bolder;
-    /* font-size: 15pt; */
-    color: yellow;
 }
 
 .champion-logo {
@@ -253,12 +195,57 @@ td:nth-child(3) {
 .pentakill {
     border: 3px solid red;
 }
-/* Cells in even rows (2,4,6...) are one color */
-/* tr:nth-child(even) td { background: #F1F1F1; } */
 
-/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
-/* tr:nth-child(odd) td { background: #FEFEFE; } */
+.data_table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 80%;
+    margin: 1rem auto;
+}
+.data_table thead tr {
+    background-color: rgba(255, 105, 0, 0.6);
+    color: #ffffff;
+    text-align: left;
+}
+.data_table th,
+.data_table td {
+    padding: 0.5rem;
+    text-align: center;
+}
 
-/* Hover cell effect! */
-/* tr td:hover { background: #666; color: #FFF; }  */
+.data_table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
 
+.data_table tbody tr:nth-of-type(even) {
+    background-color: #555;
+}
+
+.data_table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.data_table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+.data_table tbody tr td:nth-of-type(2) {
+    font-weight: bold;
+}
+
+.kda_1 {
+    color: red;
+}
+.kda_2 {
+    color: orange;
+}
+.kda_3 {
+    color: blue;
+}
+.kda_4 {
+    color: green;
+}

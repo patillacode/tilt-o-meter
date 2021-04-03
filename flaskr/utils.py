@@ -95,6 +95,7 @@ class Tiltometer:
             if err.response.status_code == 429:
                 current_app.logger.error(error_message)
             else:
+                current_app.logger.error('error code:', err.response.status_code)
                 raise Exception(err)
 
     def get_summoner_data(self):
@@ -136,7 +137,7 @@ class Tiltometer:
         matches_stats = []
         number_of_wins = 0
 
-        tilt_points = 50
+        tilt_points = 0
         multiplier = 10
         cold_streak = 0
 
@@ -165,6 +166,7 @@ class Tiltometer:
             kills = stats['kills']
             deaths = stats['deaths']
             assists = stats['assists']
+            kda = (kills + assists) / max(1, deaths)
 
             champion_img = self.champions_data[str(champion_id)]['image']
             position = match_reference['lane']
@@ -173,6 +175,7 @@ class Tiltometer:
 
             time = match['gameDuration']
             match_type = match['gameType']
+            match_mode = match['gameMode']
             win = stats['win']
             number_of_wins += 1 if win else 0
 
@@ -183,72 +186,82 @@ class Tiltometer:
                 'kills': kills,
                 'deaths': deaths,
                 'assists': assists,
+                'kda': kda,
                 'champion_name': self.champions_data[str(champion_id)]['name'],
                 'champion_img': champion_img,
                 'position': position,
                 'pentakill': pentakill,
-                'time': f'{int(time / 60)}:{str(time % 60).zfill(2)}',
+                'time': (
+                    f'{str(int(time / 3600)).zfill(2)}:'  # hours
+                    f'{str(int(time / 60)).zfill(2)}:'  # minutes
+                    f'{str(int(time % 60)).zfill(2)}'  # seconds
+                ),
                 'match_type': match_type,
+                'match_mode': match_mode,
                 'win': win,
                 'date': date,
+                'tilt_points': tilt_points,
             }
 
-            matches_stats.append(match_stats_summary)
-
+            match_tilt_points = 0
             # When practising vs BOTS or custom games you never get tilted,
-            # so they don't count. We even take 3 points off the tilt level,
-            # since they are just for fun
+            # so they don't count.
             if match['gameMode'] != 'CLASSIC' or match['gameType'] != 'MATCHED_GAME':
-                tilt_points -= 3
+                match_stats_summary['match_tilt'] = match_tilt_points
+                matches_stats.append(match_stats_summary)
                 continue
 
             if win:
                 cold_streak = 0
                 # you won the game, that should count for something right?
-                tilt_points -= 5
+                match_tilt_points -= 2 * multiplier
 
                 # if you won a game under 20 minutes probably means the
-                # opponents forfited or you crushed them
-                # multiplier for the more recent the game was
+                # opponents forfited or you crushed them, and if it was over 40 minutes
+                # and a win, ok but not that much
                 if time < 1200:
-                    tilt_points -= multiplier
+                    match_tilt_points -= 2 * multiplier
+                elif time > 2400:
+                    match_tilt_points -= multiplier
             else:
                 # 0.5 tilt points for every game lost
                 # bigger multiplier the more recent the game was
-                tilt_points += multiplier
+                match_tilt_points += 5 * multiplier
 
                 # add cold streak
                 cold_streak += 1
 
                 # if you lost a game under 20 minutes probably means you forfited
-                # or you were crushed
-                # multiplier for the more recent the game was
+                # or you were crushed and if it was over 40 minutes and a loss ... sad
                 if time < 1200:
-                    tilt_points += multiplier
+                    match_tilt_points += 3 * multiplier
+                elif time > 2400:
+                    match_tilt_points += 4 * multiplier
 
             # if you lost 2 or more games in a row you gain tilt points per game
             # bigger multiplier the more recent the cold strike was
             if cold_streak > 1:
-                tilt_points += cold_streak * (multiplier)
-
-            kda = (kills + assists) / max(1, deaths)
+                match_tilt_points += cold_streak * multiplier
 
             # if your KDA is low... tilt points for you!
             if kda < 1:
-                # tilt_points += 1.25 * multiplier
-                tilt_points += 8
+                match_tilt_points += 4 * multiplier
             elif kda < 2:
-                # tilt_points += 0.75 * multiplier
-                tilt_points += 3
+                match_tilt_points += 3 * multiplier
             elif kda < 3:
-                tilt_points += 1
+                match_tilt_points += 2 * multiplier
             else:
                 # if your kda is over 3 you did very well and you are happy
                 # let's get some tilt point off of you ^^
-                # tilt_points -= multiplier
-                tilt_points -= 3
+                match_tilt_points -= 1 * multiplier
 
+            tilt_points += match_tilt_points * (multiplier / 20)
             multiplier -= 1
+
+            match_stats_summary['match_tilt'] = match_tilt_points
+            matches_stats.append(match_stats_summary)
+
+        tilt_points = int(tilt_points)
 
         if tilt_points > 100:
             tilt_points = 100
@@ -258,7 +271,21 @@ class Tiltometer:
         return matches_stats, number_of_wins, tilt_points
 
     def get_tilt(self):
-        stats, number_of_wins, tilt_points = self.get_stats_and_tilt()
+        try:
+            stats, number_of_wins, tilt_points = self.get_stats_and_tilt()
+        except ApiError as err:
+
+            error_message = (
+                f'We should retry in {err.response.headers["Retry-After"]} seconds.\n'
+                'This retry-after is handled by default by the RiotWatcher library, '
+                'future requests wait until the retry-after time passes'
+            )
+
+            if err.response.status_code == 429:
+                current_app.logger.error(error_message)
+            else:
+                current_app.logger.error('error code:', err.response.status_code)
+                raise Exception(err)
 
         response = {
             'status': 200,

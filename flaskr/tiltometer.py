@@ -23,7 +23,7 @@ def index():
     )
 
 
-@bp.route('/tilt-o-meter/<region>/<summoner_name>', methods=('POST',))
+@bp.route('/tilt-o-meter/<region>/<summoner_name>', methods=('GET', 'POST'))
 def tiltometer(region, summoner_name):
     try:
         tiltometer = Tiltometer(lol_watcher, region, summoner_name, champions_data)
@@ -32,4 +32,7 @@ def tiltometer(region, summoner_name):
 
     except Exception as err:
         current_app.logger.error(err)
+        import traceback
+
+        current_app.logger.error(traceback.format_exc())
         return render_template('404.html', request=request)
