@@ -255,20 +255,22 @@ select::-ms-expand {
 }
 
 .data_table {
+    width: 100%;
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    width: 72%;
     margin: 1rem auto;
 }
+
 .data_table thead tr {
     background-color: #555;
     color: #ffffff;
     text-align: left;
 }
+
 .data_table th,
 .data_table td {
     padding: 0.5rem;
@@ -347,7 +349,7 @@ select::-ms-expand {
 .lds-ripple div {
   /* border: 4px solid var(--color-patilla); */
   text-shadow: var(--fat-white-shadow);
-
+  font-size: 51pt;
   position: absolute;
   opacity: 1;
   border-radius: 50%;

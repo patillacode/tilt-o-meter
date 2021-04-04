@@ -25,7 +25,12 @@
 
     <hr class="separator">
 
-    <section>
+    <section class="container">
+        <p class="text-center">
+            <small>
+                <em>Only <b>ranked</b> and <b>normal</b> games are accounted for, no <b>ARAM</b>, no <b>special modes</b>, no <b>bot</b> or <b>custom</b> games</em>
+            </small>
+        </p>
         <table class="data_table">
             <thead>
                 <tr>
@@ -34,7 +39,8 @@
                     <th>Time</th>
                     {# <th>Lane</th> #}
                     {# <th>Type</th> #}
-                    <th>Mode</th>
+                    {# <th>Mode</th> #}
+                    <th>Queue</th>
                     <th colspan="2">Date</th>
                     <th>Performance</th>
                     {# <th>Tilt</th> #}
@@ -62,8 +68,11 @@
                         <td>{{ item.time }}</td>
                         {# <td>{{ item.position }}</td> #}
                         {# <td>{{ item.match_type }}</td> #}
-                        <td>{{ item.match_mode }}</td>
+                        {# <td>{{ item.match_mode }}</td> #}
+                        <td>{{ item.queue }}</td>
+
                         <td colspan="2">{{ item.date }}</td>
+
                         {% if item.kda<1 %}
                             <td class="tilt_level tilt_level_1"><span></span></td>
                         {% elif item.kda<2 %}
@@ -73,6 +82,7 @@
                         {% else %}
                             <td class="tilt_level tilt_level_4"><span></span></td>
                         {% endif %}
+
                         {# <td>{{ item.match_tilt }}</td> #}
                         {% if item.win %}
                             <td><img class="win-lose-logo" src="{{ url_for('static', filename='img/victory.png') }}" alt="victory"></td>

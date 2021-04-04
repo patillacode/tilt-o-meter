@@ -183,6 +183,23 @@ class Tiltometer:
             date = datetime.datetime.fromtimestamp(match_reference['timestamp'] / 1000)
             date = date.strftime('%d/%b %H:%M')
 
+            queue_id = match['queueId']
+
+            if queue_id == 400:
+                queue = 'Normal'
+
+            elif queue_id == 420:
+                queue = 'Ranked (Solo/Duo)'
+
+            elif queue_id == 430:
+                queue = 'Blind Pick'
+
+            elif queue_id == 440:
+                queue = 'Ranked (Flex)'
+
+            else:
+                queue = '-'
+
             match_stats_summary = {
                 'kills': kills,
                 'deaths': deaths,
@@ -202,14 +219,19 @@ class Tiltometer:
                 'win': win,
                 'date': date,
                 'tilt_points': tilt_points,
+                'queue': queue,
             }
 
             match_tilt_points = 0
             # When practising vs BOTS or custom games you never get tilted,
             # so they don't count.
-            if match['gameMode'] != 'CLASSIC' or match['gameType'] != 'MATCHED_GAME':
-                match_stats_summary['match_tilt'] = match_tilt_points
-                matches_stats.append(match_stats_summary)
+            if (
+                match['gameMode'] != 'CLASSIC'
+                or match['gameType'] != 'MATCHED_GAME'
+                or time < 300
+            ):
+                # match_stats_summary['match_tilt'] = match_tilt_points
+                # matches_stats.append(match_stats_summary)
                 continue
 
             if win:

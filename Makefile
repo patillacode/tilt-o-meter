@@ -1,5 +1,5 @@
 install: python-install
-full-reset: riot-key-reset docker-reset
+full-reset: repo-pull riot-key-reset docker-reset
 
 python-install:
 	python3 -m venv venv && \
@@ -24,7 +24,7 @@ docker-reset:
 	echo "Deleting image..." && \
 	docker rmi tilt-o-meter && \
 	echo "Rebuilding image..." && \
-	docker build --tag tilt-o-meter . && \
+	docker build --tag tilt-o-meter . > /dev/null && \
 	echo "Running new image in new container..." && \
 	docker run -d --name tilt-o-meter --publish 5051:5051 tilt-o-meter && \
 	echo "Set restart on failure..." && \
@@ -33,3 +33,6 @@ docker-reset:
 riot-key-reset:
 	@read -p "Enter new API Key: " key; \
 	echo "RIOT_API_KEY = \"$$key\"" > flaskr/secrets.py
+
+repo-pull:
+	git pull origin master
