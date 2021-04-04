@@ -24,7 +24,7 @@ docker-reset:
 	echo "Deleting image..." && \
 	docker rmi tilt-o-meter && \
 	echo "Rebuilding image..." && \
-	docker build --tag tilt-o-meter . > /dev/null && \
+	docker build --tag tilt-o-meter . && \
 	echo "Running new image in new container..." && \
 	docker run -d --name tilt-o-meter --publish 5051:5051 tilt-o-meter && \
 	echo "Set restart on failure..." && \
