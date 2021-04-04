@@ -1,4 +1,5 @@
 install: python-install
+full-reset: riot-key-reset docker-reset
 
 python-install:
 	python3 -m venv venv && \
@@ -28,3 +29,7 @@ docker-reset:
 	docker run -d --name tilt-o-meter --publish 5051:5051 tilt-o-meter && \
 	echo "Set restart on failure..." && \
 	docker update --restart=on-failure tilt-o-meter
+
+riot-key-reset:
+	@read -p "Enter new API Key: " key; \
+	echo "RIOT_API_KEY = \"$$key\"" > flaskr/secrets.py
