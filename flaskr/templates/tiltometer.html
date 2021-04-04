@@ -19,7 +19,7 @@
             <canvas id="tilt-chart"></canvas>
         </div>
         <div class="tilt-container__tilt">
-            <p>{{ data.tilt_level }}%</p>
+            <p><b>{{ data.summoner_name }}</b> <small>is about</small> {{ data.tilt_level }}% <small>tilted</small></p>
         </div>
     </section>
 
@@ -37,9 +37,6 @@
                     <th>Champion</th>
                     <th>KDA</th>
                     <th>Time</th>
-                    {# <th>Lane</th> #}
-                    {# <th>Type</th> #}
-                    {# <th>Mode</th> #}
                     <th>Queue</th>
                     <th colspan="2">Date</th>
                     <th>Performance</th>
@@ -50,7 +47,7 @@
             <tbody>
                 {% for item in data.stats %}
                     {% if item.pentakill %}
-                        <tr class="pentakill">
+                        <tr class="pentakill" data-tooltip="{{data.summoner_name}} got a Pentakill">
                     {% else%}
                         <tr>
                     {% endif %}
@@ -66,9 +63,6 @@
                         {% endif %}
 
                         <td>{{ item.time }}</td>
-                        {# <td>{{ item.position }}</td> #}
-                        {# <td>{{ item.match_type }}</td> #}
-                        {# <td>{{ item.match_mode }}</td> #}
                         <td>{{ item.queue }}</td>
 
                         <td colspan="2">{{ item.date }}</td>

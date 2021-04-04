@@ -71,7 +71,7 @@ def get_champions_data(watcher, region):
 
 class Tiltometer:
     def __init__(
-        self, watcher, region, summoner_name, champions_data, number_of_games=10
+        self, watcher, region, summoner_name, champions_data, number_of_games=20
     ):
         self.watcher = watcher
         self.region = region
@@ -136,11 +136,11 @@ class Tiltometer:
 
     def get_stats_and_tilt(self):
         matches_stats = []
-        number_of_wins = 0
 
-        tilt_points = 0
-        multiplier = 10
         cold_streak = 0
+        multiplier = 10
+        number_of_wins = 0
+        tilt_points = 0
 
         for match_reference in self.matches:
             match = self.watcher.match.by_id(self.region, match_reference['gameId'])
@@ -278,18 +278,23 @@ class Tiltometer:
                 # let's get some tilt point off of you ^^
                 match_tilt_points -= 1 * multiplier
 
-            tilt_points += match_tilt_points * (multiplier / 20)
-            multiplier -= 1
-
             match_stats_summary['match_tilt'] = match_tilt_points
             matches_stats.append(match_stats_summary)
+            number_of_accounted_matches = len(matches_stats)
+
+            tilt_points += match_tilt_points * (multiplier / 10)
+
+            multiplier -= 1
+
+            if number_of_accounted_matches > 9:
+                break
 
         tilt_points = int(tilt_points)
 
         if tilt_points > 100:
-            tilt_points = 100
+            tilt_points = 99
         elif tilt_points < 1:
-            tilt_points = 0
+            tilt_points = 1
 
         return matches_stats, number_of_wins, tilt_points
 
