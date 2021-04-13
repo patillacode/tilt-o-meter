@@ -3,6 +3,7 @@
   <head>
       <title>{% block title %}{% endblock %}tilt-o-meter</title>
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tiltometer.css') }}">
+      {% block extra_css %}{% endblock %}
       <script type="text/javascript" src="{{ url_for('static', filename='js/tiltometer.js') }}" async></script>
       {% block extra_js %}{% endblock %}
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,5 +56,7 @@
         </div>
 
     </body>
+
+    {% block extra_js_end %}{% endblock %}
 
 </html>

@@ -220,25 +220,37 @@ select::-ms-expand {
 
 /* TILTOMETER */
 
-.tilt-container {
-    margin: 1rem auto;
-    display: flex;
-    justify-content: center;
-}
-
-.tilt-container__chart {
-    max-width: 310px;
-}
-
 .tilt-container__tilt {
     font-family: 'AdventPro';
     font-size: 36pt;
-    color: var(--color-patilla);
+    /* color: var(--color-patilla); */
     text-align: center;
     min-width: 310px;
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.orange {
+  color: var(--color-patilla);
+}
+
+.speedometer,
+.speed-app {
+    width: 72%;
+    height: 50vh;
+    max-height: 25em;
+    overflow: hidden;
+    font-size: 85px;
+    margin: auto;
+}
+
+.txt {
+  fill: var(--color-patilla);
+}
+canvas, svg {
+    position: absolute;
+    user-select: none;
 }
 
 .champion-logo {
